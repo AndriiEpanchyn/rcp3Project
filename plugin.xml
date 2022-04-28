@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="rcp3project.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="rcp3project.Perspective"
+            fixed="true"
+            id="rcp3project.Perspective"
+            name="RCP Perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="false"
+            class="rcp3project.NavigationView"
+            fastViewWidthRatio="0.15"
+            id="rcp3project.NavigationView"
+            name="Navi"
+            restorable="true">
+      </view>
+      <view
+            allowMultiple="true"
+            class="rcp3project.FormView"
+            fastViewWidthRatio="0.75"
+            id="rcp3project.FormView"
+            name="Form"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="rcp3project.Perspective">
+         <view
+               id="rcp3project.NavigationView"
+               minimized="false"
+               ratio="0.15"
+               relationship="left">
+         </view>
+         <view
+               id="rcp3project.FormView"
+               minimized="false"
+               ratio="0.75"
+               relationship="stack">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         name="General"
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               label="File">
+            <command
+                  commandId="org.eclipse.ui.newWizard"
+                  label="New"
+                  style="push">
+            </command>
+            <command
+                  commandId="rcp3Project.command2"
+                  label="Open"
+                  style="push">
+            </command>
+            <command
+                  commandId="rcp3Project.command3"
+                  label="Save"
+                  style="push">
+            </command>
+            <command
+                  commandId="rcp3Project.command4"
+                  label="Save as"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.file.exit"
+                  label="Exit"
+                  style="push">
+            </command>
+         </menu>
+         <menu
+               label="Edit">
+            <menu
+                  label="Group">
+               <command
+                     commandId="rcp3Project.command7"
+                     label="New group"
+                     style="push">
+               </command>
+               <command
+                     commandId="rcp3Project.command8"
+                     label="Edit group"
+                     style="push">
+               </command>
+               <command
+                     commandId="rcp3Project.command9"
+                     label="Delete group"
+                     style="push">
+               </command>
+            </menu>
+            <menu
+                  label="Student">
+               <command
+                     commandId="rcp3Project.command10"
+                     label="New Student"
+                     style="push">
+               </command>
+               <command
+                     commandId="rcp3Project.command11"
+                     label="Edit student"
+                     style="push">
+               </command>
+               <command
+                     commandId="rcp3Project.command12"
+                     label="Delete student"
+                     style="push">
+               </command>
+            </menu>
+         </menu>
+         <menu
+               label="About">
+            <command
+                  commandId="rcp3Project.command13"
+                  label="About program"
+                  style="push">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+
+</plugin>
