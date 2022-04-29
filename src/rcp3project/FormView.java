@@ -60,6 +60,25 @@ public class FormView extends ViewPart {
 		
 
 	}
+	
+	public void setFields() {
+		textName.setText(name);
+		textGroup.setText(group);
+		textAddress.setText(address);
+		textCity.setText(city);
+		textResult.setText(String.valueOf(result));
+		photo = img;
+	}
+	
+	public void refreshAll() {
+		textName.redraw();
+		textGroup.redraw();
+		textAddress.redraw();
+		textCity.redraw();
+		textResult.redraw();
+		photoLabel.redraw();
+		
+	}
 
 	@Override
 	public void setFocus() {
@@ -109,4 +128,45 @@ public class FormView extends ViewPart {
 		photoGrid.minimumWidth = 100;
 		return photoGrid;
 	}
+
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+
+	public void setGroup(String group) {
+		this.group = group;
+	}
+
+	
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	
+	public void setResult(int result) {
+		this.result = result;
+	}
+
+	
+	public void setImg(Image img) {
+		this.img = img;
+	}
+
+//	public FormView( String name, String group, String address, String city, int result,
+//			Image img) {
+//		this.name = name;
+//		this.group = group;
+//		this.address = address;
+//		this.city = city;
+//		this.result = result;
+//		this.img = img;
+//		setFields();
+//	}
 }

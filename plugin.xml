@@ -34,6 +34,7 @@
             allowMultiple="true"
             class="rcp3project.FormView"
             fastViewWidthRatio="0.75"
+            icon="icons/eclipse16.png"
             id="rcp3project.FormView"
             name="Form"
             restorable="true">
@@ -46,14 +47,17 @@
          <view
                id="rcp3project.NavigationView"
                minimized="false"
-               ratio="0.15"
-               relationship="left">
+               ratio="0.25"
+               relationship="left"
+               standalone="false"
+               visible="true">
          </view>
          <view
                id="rcp3project.FormView"
                minimized="false"
                ratio="0.75"
-               relationship="stack">
+               relationship="right"
+               visible="true">
          </view>
       </perspectiveExtension>
    </extension>

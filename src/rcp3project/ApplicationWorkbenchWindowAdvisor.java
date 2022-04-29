@@ -20,6 +20,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     @Override
     public void preWindowOpen() {
         IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
+       //configurer.setShellStyle(SWT.DIALOG_TRIM);
         configurer.setInitialSize(new Point(900, 350));
         configurer.setShowMenuBar(true);
         configurer.setShowCoolBar(true);

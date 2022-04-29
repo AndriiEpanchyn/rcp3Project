@@ -15,7 +15,7 @@ public class Node {
 	private int result; // Set only if isLeaf=true;
 	private Image photo;
 
-	Node() {
+	public Node() {
 		this.parent = null;
 		this.children = new ArrayList<Node>();
 		this.isLeaf = false;
@@ -26,7 +26,7 @@ public class Node {
 		this.photo = null;
 	}
 	
-	Node(String name) {
+	public Node(String name) {
 		this.parent = null;
 		this.children = new ArrayList<Node>();
 		this.isLeaf = false;
@@ -91,8 +91,9 @@ public class Node {
 	}
 	
 	public static Node makeDummyTree() {
-		Node root = new Node("root");
 		
+		Node root = new Node("root");
+				
 		Node simpsons = root.createSubFolder("Simpsons");
 		Node simpsonGomer = new Node(simpsons, null, "Gomer Simpson", true, "building 1","Simpsons town", 3, null);
 		Node simpsonMarge = new Node(simpsons, null, "Marge Simpson", true, "building 1","Simpsons town", 3, null);
@@ -120,6 +121,9 @@ public class Node {
 		flingstones.createLeaf(flingstoneBetty);
 		flingstones.createLeaf(flingstoneBamBam);
 		
+		
+		Node additionalPersonage = new Node(root, null, "Additional personage", true, "building 1","Flingstone town", 3, null);
+		root.createLeaf(additionalPersonage);
 		return root;
 	}
 	

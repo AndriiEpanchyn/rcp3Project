@@ -8,7 +8,7 @@ public class MyContentProvider2 implements IStructuredContentProvider, ITreeCont
 	@Override
 	public Object[] getElements(Object inputElement) {
 		
-		System.out.println(((Node) inputElement).getChildren().toArray());
+		//System.out.println(((Node) inputElement).getChildren().toArray());
 			return  ((Node) inputElement).getChildren().toArray();
 		//return ArrayContentProvider.getInstance().getElements(inputElement);
 	}
