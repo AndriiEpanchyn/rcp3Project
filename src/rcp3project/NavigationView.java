@@ -1,5 +1,8 @@
 package rcp3project;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -10,7 +13,6 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
-import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
@@ -39,9 +41,15 @@ public class NavigationView extends ViewPart {
 				Node currentNode = (Node) selection.getFirstElement();
 				System.out.println(currentNode);
 				System.out.println("result: " + currentNode.isLeaf());
-				
-				FormView view = (FormView) PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getPartService().getActivePartReference().getPart(true);				
+				try {
+					 PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(FormView.ID);
+					//System.out.println(f.group=currentNode.getParent().getName());
+					 String path = new File("C:\\JavaProjects\\_Luxoft\\rcp3Project\\icons\\eclipse128.png").getAbsolutePath();
+					 System.out.print(File.separator+" "+path);
+				} catch (PartInitException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 	}

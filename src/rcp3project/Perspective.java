@@ -22,14 +22,15 @@ public class Perspective implements IPerspectiveFactory {
 		folder.addView(FormView.ID);
 		folder.addView(FormView.ID);
 		
+		
 		layout.getViewLayout(NavigationView.ID).setCloseable(false);
 		
-//		layout.addView(FormView.ID, IPageLayout.LEFT, 0.65f, editorArea);
+		//layout.addView(FormView.ID, IPageLayout.LEFT, 0.65f, editorArea);
 //		layout.getViewLayout(FormView.ID).setCloseable(false);
 //		layout.addPlaceholder(FormView.ID, IPageLayout.LEFT, 0.65f, editorArea);
 	}
 	
-	public void addFolder() {
+	public void addFolder(IFolderLayout folder) {
 		folder.addView(FormView.ID);	
 		
 	}

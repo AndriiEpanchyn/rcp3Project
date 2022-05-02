@@ -1,5 +1,7 @@
 package rcp3project;
 
+import java.io.File;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -11,7 +13,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 
 public class FormView extends ViewPart {
-	public static final String ID = "rcp3project.FormView";
+	public static String ID = "rcp3project.FormView";
 
 	Composite mainComposite;
 	String name = "Some name";
@@ -25,9 +27,9 @@ public class FormView extends ViewPart {
 	Text textName, textGroup, textAddress, textCity, textResult;
     Canvas canvas;
 	Image photo;
-	String photoFileName = "C:\\JavaProjects\\_Luxoft\\rcp3Project\\icons\\eclipse256.png";
+	String photoFileName = "./icons/eclipse128.png";
 	
-
+	
 	public void createPartControl(Composite parent) {
 		GridLayout mainCompositeLayout = new GridLayout(7, true);
 		mainCompositeLayout.horizontalSpacing = 5;
@@ -82,7 +84,6 @@ public class FormView extends ViewPart {
 
 	@Override
 	public void setFocus() {
-		// TODO Auto-generated method stub
 		textName.setFocus();
 	}
 	

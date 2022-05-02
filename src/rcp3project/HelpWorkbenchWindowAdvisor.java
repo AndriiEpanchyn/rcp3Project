@@ -1,17 +1,16 @@
 package rcp3project;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
-public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
+public class HelpWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
-    public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
+    public HelpWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
         super(configurer);
-        
     }
     
     @Override
@@ -22,19 +21,12 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     @Override
     public void preWindowOpen() {
         IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
-       //configurer.setShellStyle(SWT.DIALOG_TRIM);
-        configurer.setInitialSize(new Point(900, 350));
-        configurer.setShowMenuBar(true);
-        configurer.setShowCoolBar(true);
+        configurer.setShellStyle(SWT.DIALOG_TRIM);
+        configurer.setInitialSize(new Point(200, 100));
+        configurer.setShowMenuBar(false);
+        configurer.setShowCoolBar(false);
         configurer.setShowStatusLine(false);
         configurer.setShowPerspectiveBar(false);
-        configurer.setTitle("Alien RCP app"); //$NON-NLS-1$
-    }
-    
-    @Override
-    public void postWindowCreate() {
-    	Shell shell = getWindowConfigurer().getWindow().getShell();
-        shell.setLocation(1000, 150);
-        super.postWindowCreate();
+        configurer.setTitle("Help"); //$NON-NLS-1$
     }
 }

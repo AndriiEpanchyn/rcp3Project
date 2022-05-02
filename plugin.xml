@@ -144,5 +144,8 @@
          </menu>
       </menuContribution>
    </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+   </extension>
 
 </plugin>
