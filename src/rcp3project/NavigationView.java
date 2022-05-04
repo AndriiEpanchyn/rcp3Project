@@ -1,8 +1,5 @@
 package rcp3project;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -13,15 +10,19 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import dataModel.MyContentProvider2;
 import dataModel.Node;
+import dataModel.SessionManager;
 
 public class NavigationView extends ViewPart {
 	public static final String ID = "rcp3project.NavigationView";
 	private TreeViewer viewer;
+//	Node session = SessionManager.getSession();
+	Node session = Node.makeDummyTree();
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -29,7 +30,7 @@ public class NavigationView extends ViewPart {
 		viewer.setContentProvider(new MyContentProvider2());
 		viewer.setLabelProvider(new LabelProvider());
 		createColumn(viewer.getTree(), "Students");
-		viewer.setInput(Node.makeDummyTree());
+		viewer.setInput(session);
 		viewer.expandAll();
 		viewer.getTree().setHeaderBackground(new Color(120, 120, 120));
 		viewer.getTree().setHeaderForeground(new Color(220, 220, 220));
@@ -39,15 +40,14 @@ public class NavigationView extends ViewPart {
 				// TODO Auto-generated method stub
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				Node currentNode = (Node) selection.getFirstElement();
-				System.out.println(currentNode);
-				System.out.println("result: " + currentNode.isLeaf());
+				SessionManager.setCurrentRefrence(currentNode);
+				System.out.println(SessionManager.getCurrentRefrence());
+				System.out.println("result: " + SessionManager.getCurrentRefrence().isLeaf());
 				try {
-					 PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(FormView.ID);
-					//System.out.println(f.group=currentNode.getParent().getName());
-					 String path = new File("C:\\JavaProjects\\_Luxoft\\rcp3Project\\icons\\eclipse128.png").getAbsolutePath();
-					 System.out.print(File.separator+" "+path);
+					IEditorPart f = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(new EditorInput(currentNode), FormEditor.ID);
+					
+					System.out.println("Title is: "+f.getTitle());
 				} catch (PartInitException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

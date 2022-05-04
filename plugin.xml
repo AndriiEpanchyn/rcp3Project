@@ -30,15 +30,6 @@
             name="Navi"
             restorable="true">
       </view>
-      <view
-            allowMultiple="true"
-            class="rcp3project.FormView"
-            fastViewWidthRatio="0.75"
-            icon="icons/eclipse16.png"
-            id="rcp3project.FormView"
-            name="Form"
-            restorable="true">
-      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -50,13 +41,6 @@
                ratio="0.25"
                relationship="left"
                standalone="false"
-               visible="true">
-         </view>
-         <view
-               id="rcp3project.FormView"
-               minimized="false"
-               ratio="0.75"
-               relationship="right"
                visible="true">
          </view>
       </perspectiveExtension>
@@ -135,17 +119,32 @@
             </menu>
          </menu>
          <menu
+               commandId="rcp3Project.FormEditorCommand"
                label="About">
             <command
-                  commandId="rcp3Project.command13"
-                  label="About program"
-                  style="push">
+                  commandId="rcp3Project.FormEditorCommand"
+                  defaultHandler="rcp3project.CommandCallFormEditor"
+                  id="rcp3Project.FormEditorCommand"
+                  name="Call FormEditor">
             </command>
          </menu>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI=" toolbar:org.eclipse.ui.main.toolbar">
       </menuContribution>
    </extension>
    <extension
          point="org.eclipse.ui.editors">
+      <editor
+            class="rcp3project.FormEditor"
+            default="false"
+            id="rcp3project.FormEditor"
+            name="name">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
    </extension>
 
 </plugin>

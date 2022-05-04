@@ -15,23 +15,9 @@ public class Perspective implements IPerspectiveFactory {
 		layout.addStandaloneView(NavigationView.ID,  false,
 				IPageLayout.LEFT, 0.35f, editorArea);
 		
-		folder = layout.createFolder("students",
-				IPageLayout.TOP, 0.65f, editorArea);
-		
-		folder.addPlaceholder(FormView.ID + ":*");
-		folder.addView(FormView.ID);
-		folder.addView(FormView.ID);
-		
+//		folder = layout.createFolder("students",
+//				IPageLayout.TOP, 0.65f, editorArea);
 		
 		layout.getViewLayout(NavigationView.ID).setCloseable(false);
-		
-		//layout.addView(FormView.ID, IPageLayout.LEFT, 0.65f, editorArea);
-//		layout.getViewLayout(FormView.ID).setCloseable(false);
-//		layout.addPlaceholder(FormView.ID, IPageLayout.LEFT, 0.65f, editorArea);
-	}
-	
-	public void addFolder(IFolderLayout folder) {
-		folder.addView(FormView.ID);	
-		
 	}
 }
