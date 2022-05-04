@@ -22,8 +22,7 @@ public class Application implements IApplication {
 				return IApplication.EXIT_OK;
 		} finally {
 			display.dispose();
-		}
-		
+		}	
 	}
 
 	@Override

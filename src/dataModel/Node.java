@@ -98,8 +98,10 @@ public class Node {
 				true, "building 1","Simpsons town", 3, "src/photos/SimpsonMarge256x256.png");
 		Node simpsonBarth = new Node(simpsons, null, "Barth Simpson",
 				true, "building 1","Simpsons town", 3, "src/photos/SimpsonBarth256x256.png");
-		Node simpsonElisabeth = new Node(simpsons, null, "Elisabeth Simpson", true, "building 1","Simpsons town", 3, null);
-		Node simpsonMaggy = new Node(simpsons, null, "Maggy Simpson", true, "building 1","Simpsons town", 3, null);
+		Node simpsonElisabeth = new Node(simpsons, null, "Elisabeth Simpson", true, 
+				"building 1","Simpsons town", 3, "src/photos/SimpsonLisa256x256.png");
+		Node simpsonMaggy = new Node(simpsons, null, "Maggy Simpson",
+				true, "building 1","Simpsons town", 3, "src/photos/SimpsonMaggie256x256.png");
 		
 		simpsons.createLeaf(simpsonHomer);
 		simpsons.createLeaf(simpsonMarge);
@@ -108,15 +110,20 @@ public class Node {
 		simpsons.createLeaf(simpsonMaggy);
 		
 		Node flingstones = root.createSubFolder("Flingstones");	
-		Node flingstoneFred = new Node(flingstones, null, "Fred Flingstone", true, "building 1","Flingstone town", 3, null);
-		Node flingstoneWilma = new Node(flingstones, null, "Wilma Flingstone", true, "building 1","Flingstone town", 3, null);
-		Node flingstoneBarni = new Node(flingstones, null, "Barni Flingstone", true, "building 1","Flingstone town", 3, null);
-		Node flingstoneBetty = new Node(flingstones, null, "Betty Flingstone", true, "building 1","Flingstone town", 3, null);
-		Node flingstoneBamBam = new Node(flingstones, null, "BamBam Flingstone", true, "building 1","Flingstone town", 3, null);
+		Node flingstoneFred = new Node(flingstones, null, "Fred Flingstone",
+				true, "building 1","Flingstone town", 3, "src/photos/FlinstoneFred306x434.png");
+		Node flingstoneWilma = new Node(flingstones, null, "Wilma Flingstone",
+				true, "building 1","Flingstone town", 3, "src/photos/FlinstoneWilma256x256.png");
+		Node flingstoneBarney = new Node(flingstones, null, "Barni Flingstone",
+				true, "building 1","Flingstone town", 3, "src/photos/FlinstoneBarney256x256.png");
+		Node flingstoneBetty = new Node(flingstones, null, "Betty Flingstone",
+				true, "building 1","Flingstone town", 3, "src/photos/FlinstoneBetty256x256.png");
+		Node flingstoneBamBam = new Node(flingstones, null, "BamBam Flingstone",
+				true, "building 1","Flingstone town", 3, "src/photos/FlinstoneBamBam256x256.png");
 		
 		flingstones.createLeaf(flingstoneFred);
 		flingstones.createLeaf(flingstoneWilma);
-		flingstones.createLeaf(flingstoneBarni);
+		flingstones.createLeaf(flingstoneBarney);
 		flingstones.createLeaf(flingstoneBetty);
 		flingstones.createLeaf(flingstoneBamBam);
 				

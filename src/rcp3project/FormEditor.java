@@ -48,7 +48,6 @@ public class FormEditor extends EditorPart {
 		photoLabel = new Label(mainComposite, SWT.BORDER);
 		photoLabel.setLayoutData(createPhotoGrid());	
 		photoLabel.setImage(convertPhotoForLabel(currentReference.getPhoto()));
-		//TODO ADD resize see the saved link
 			
 		labelGroup = createLabel(mainComposite, "Group");
 		textGroup = createText(mainComposite, currentReference.getParent().getName());
@@ -136,25 +135,21 @@ public class FormEditor extends EditorPart {
 		
 		Image  photo = new Image(photoLabel.getShell().getDisplay(), 
 				Application.class.getClassLoader().getResourceAsStream(fileName));
-		int photoWidth = photo.getBounds().width;
-		int photoHeight = photo.getBounds().height;
-		System.out.println("target bounds w= "+photoWidth+"; target bounds  H= "+photoHeight);
-		
-		int labelWidth = 256;
-		int labelHeight = 256;
-		float k;
-		if(labelWidth>labelHeight) {
-			k=(Float.valueOf(labelHeight))/(Float.valueOf(photoHeight));
-			System.out.println("k= "+k+"Label H= "+Float.valueOf(labelHeight)+"; photo H= "+Float.valueOf(photoHeight));
-		} else {
-			k=(Float.valueOf(labelWidth))/(Float.valueOf(photoWidth));
-			System.out.println("k= "+k+"Label H= "+Float.valueOf(labelWidth)+"; photo H= "+Float.valueOf(photoWidth));
-		}
-		System.out.println("k= "+k+" w= "+(int)(photoWidth*k)+"; h= "+(int)(photoHeight*k));
-		final Image answer = new Image(photoLabel.getShell().getDisplay(),photo.getImageData().scaledTo(300, 400));
-		
-//		final Image answer = new Image(target.getShell().getDisplay(),
-//		        photo.getImageData().scaledTo((int)(photoWidth*k),(int)(photoHeight*k)));
+//		int photoWidth = photo.getBounds().width;
+//		int photoHeight = photo.getBounds().height;
+//	
+//		int labelWidth = 256;
+//		int labelHeight = 256;
+//		float k;
+//		if(labelWidth>labelHeight) {
+//			k=(Float.valueOf(labelHeight))/(Float.valueOf(photoHeight));
+//			System.out.println("k= "+k+"Label H= "+Float.valueOf(labelHeight)+"; photo H= "+Float.valueOf(photoHeight));
+//		} else {
+//			k=(Float.valueOf(labelWidth))/(Float.valueOf(photoWidth));
+//			System.out.println("k= "+k+"Label H= "+Float.valueOf(labelWidth)+"; photo H= "+Float.valueOf(photoWidth));
+//		}
+		//System.out.println("k= "+k+" w= "+(int)(photoWidth*k)+"; h= "+(int)(photoHeight*k));
+		final Image answer = new Image(photoLabel.getShell().getDisplay(),photo.getImageData().scaledTo(256, 256));
 		return answer;			
 	}
 

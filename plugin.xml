@@ -116,21 +116,27 @@
                      label="Delete student"
                      style="push">
                </command>
+               <command
+                     commandId="org.eclipse.ui.file.close"
+                     label="Close current editor"
+                     style="push">
+               </command>
             </menu>
          </menu>
          <menu
-               commandId="rcp3Project.FormEditorCommand"
+               commandId="AboutWindowAction"
+               id="AboutWindowAction"
                label="About">
             <command
-                  commandId="rcp3Project.FormEditorCommand"
-                  defaultHandler="rcp3project.CommandCallFormEditor"
-                  id="rcp3Project.FormEditorCommand"
-                  name="Call FormEditor">
+                  commandId="AboutWindowAction"
+                  icon="icons/eclipse16.png"
+                  label="About"
+                  style="push">
             </command>
          </menu>
       </menuContribution>
       <menuContribution
-            allPopups="false"
+            allPopups="true"
             locationURI=" toolbar:org.eclipse.ui.main.toolbar">
       </menuContribution>
    </extension>

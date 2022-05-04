@@ -1,9 +1,11 @@
 package dataModel;
 
 public class SessionManager {
+	
 	private static Node session;
 	private static Node currentRefrence;
     private static String fileName;
+    
 	public static synchronized Node getSession() {
 		if (session == null) {
 			session = new Node();
@@ -35,4 +37,11 @@ public class SessionManager {
 	public static synchronized void setFileName(String file) {
 		fileName = file;
 	}
+
+	public static synchronized void clearSession() {
+		session = null;
+		session = SessionManager.getSession();
+		fileName="";
+	}
+
 }
