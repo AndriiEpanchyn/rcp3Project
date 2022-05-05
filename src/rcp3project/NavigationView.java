@@ -65,4 +65,11 @@ public class NavigationView extends ViewPart {
 	public void setFocus() {
 		viewer.getControl().setFocus();
 	}
+	
+	public void redrawTree() {
+		 viewer.getTree().deselectAll();
+		 session=SessionManager.getSession();
+		 viewer.setInput(session);
+		 viewer.refresh();
+	}
 }

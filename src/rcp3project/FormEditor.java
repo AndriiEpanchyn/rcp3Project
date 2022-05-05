@@ -44,6 +44,7 @@ public class FormEditor extends EditorPart {
 
 		labelName = createLabel(mainComposite, "Name");
 		textName = createText(mainComposite,currentReference.getName());
+		setPartName(currentReference.getName());
 		
 		photoLabel = new Label(mainComposite, SWT.BORDER);
 		photoLabel.setLayoutData(createPhotoGrid());	
@@ -94,7 +95,7 @@ public class FormEditor extends EditorPart {
 		labelGrid.heightHint=22;
 		labelGrid.widthHint=60;
 		
-		Label label = new Label(mainComposite, SWT.BORDER);
+		Label label = new Label(mainComposite, SWT.NONE);
 		label.setText(strLabel);
 		label.setLayoutData(labelGrid);
 		return label;

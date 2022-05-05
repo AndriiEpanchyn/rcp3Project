@@ -54,8 +54,8 @@
          <menu
                label="File">
             <command
-                  commandId="org.eclipse.ui.newWizard"
-                  label="New"
+                  commandId="NewFileAction"
+                  label="New file"
                   style="push">
             </command>
             <command
@@ -112,12 +112,14 @@
                      style="push">
                </command>
                <command
-                     commandId="rcp3Project.command12"
+                     commandId="org.eclipse.ui.edit.delete"
+                     id="Delete student"
                      label="Delete student"
                      style="push">
                </command>
                <command
                      commandId="org.eclipse.ui.file.close"
+                     id="CloseEditor"
                      label="Close current editor"
                      style="push">
                </command>

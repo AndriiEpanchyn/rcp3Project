@@ -16,6 +16,7 @@ import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 
 import actions.FileMenu.AboutWindowAction;
+import actions.FileMenu.NewFileAction;
 
 public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
@@ -23,10 +24,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 //	private IWorkbenchAction openFileAction;
 //	private IWorkbenchAction saveFileAction;
 //	private IWorkbenchAction newFileAction;
-//	//private OpenViewAction helpAction;
+//	private OpenViewAction helpAction;
 	private AboutWindowAction aboutAction;
 	private IWorkbenchAction closeEditorAction;
-	
+	private NewFileAction newFileAction;
 	
 	public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
 		super(configurer);
@@ -39,13 +40,23 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		register(aboutAction);
 		
 		closeEditorAction = ActionFactory.CLOSE.create(window);
-//		openFileAction = ActionFactory.OPEN_NEW_WINDOW.create(window);
+		register(closeEditorAction);
+		
+		newFileAction = new NewFileAction(window);
+		register(newFileAction);
+		
+		
+		
+//		deleteEditorAction = ActionFactory.DELETE.create(window);
+//		register(deleteEditorAction);
+		//openFileAction = ActionFactory.OPEN_NEW_WINDOW.create(window);
 //        register(openFileAction);
 	}
 	
 	@Override
 	protected void fillMenuBar(IMenuManager menuBar) {
 		super.fillMenuBar(menuBar);	
+		
 	}
 	
 	@Override

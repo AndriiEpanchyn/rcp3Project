@@ -172,6 +172,8 @@ public class Node {
 	}
 	
 	public void removeFullSubfolder(Node child) {
+		//TODO check this method entirely
+		
 		this.children.remove(child);
 	}
 
