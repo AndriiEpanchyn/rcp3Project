@@ -18,29 +18,30 @@ import rcp3project.FormEditor;
 import rcp3project.NavigationView;
 
 public class NewFileAction extends Action {
-	 private final IWorkbenchWindow window;
-	 private final String ACTION_ID="NewFileAction";
-	 
-	 public NewFileAction(IWorkbenchWindow win){
-		 this.window=win;
-		 setId(ACTION_ID);
-		 setActionDefinitionId(ACTION_ID);
-		 Bundle bundle = Platform.getBundle(Activator.PLUGIN_ID);
-		 URL fileURL = bundle.getEntry("/icons/eclipse16.png");
-		 setImageDescriptor(ImageDescriptor.createFromURL(fileURL));
-	 }
-	 
-	 @Override
-	 public void run() {
-		 NavigationView n=null;
-		 PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false); //All unsaved close without saving 
-		 SessionManager.clearSession(); 
-		 try {
-				n= (NavigationView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(NavigationView.ID);
-			 n.redrawTree();
-			
-			} catch (PartInitException e) {
-				e.printStackTrace();
-			}	 
-	 }
+	private final IWorkbenchWindow window;
+	private final String ACTION_ID = "rcp3Project.NewFileAction";
+
+	public NewFileAction(IWorkbenchWindow win) {
+		this.window = win;
+		setId(ACTION_ID);
+		setActionDefinitionId(ACTION_ID);
+		Bundle bundle = Platform.getBundle(Activator.PLUGIN_ID);
+		URL fileURL = bundle.getEntry("/icons/newFile16x16.png");
+		setImageDescriptor(ImageDescriptor.createFromURL(fileURL));
+	}
+
+	@Override
+	public void run() {
+		NavigationView n = null;
+		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false); 
+		SessionManager.clearSession();
+		try {
+			n = (NavigationView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+					.showView(NavigationView.ID);
+			n.redrawTree();
+
+		} catch (PartInitException e) {
+			e.printStackTrace();
+		}
+	}
 }

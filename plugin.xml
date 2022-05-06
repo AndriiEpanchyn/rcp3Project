@@ -40,6 +40,7 @@
                minimized="false"
                ratio="0.25"
                relationship="left"
+               relative="org.eclipse.ui.editorss"
                standalone="false"
                visible="true">
          </view>
@@ -54,7 +55,8 @@
          <menu
                label="File">
             <command
-                  commandId="NewFileAction"
+                  commandId="rcp3Project.NewFileAction"
+                  icon="icons/newFile16x16.png"
                   label="New file"
                   style="push">
             </command>
@@ -65,18 +67,15 @@
             </command>
             <command
                   commandId="rcp3Project.command3"
+                  icon="icons/eclipse16.png"
                   label="Save"
-                  style="push">
-            </command>
-            <command
-                  commandId="rcp3Project.command4"
-                  label="Save as"
                   style="push">
             </command>
             <command
                   commandId="org.eclipse.ui.file.exit"
                   label="Exit"
-                  style="push">
+                  style="push"
+                  tooltip="Exit programm">
             </command>
          </menu>
          <menu
@@ -132,6 +131,7 @@
             <command
                   commandId="AboutWindowAction"
                   icon="icons/eclipse16.png"
+                  id="rcp3Project.AboutWindowAction"
                   label="About"
                   style="push">
             </command>
@@ -153,6 +153,18 @@
    </extension>
    <extension
          point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="org.eclipse.ui.internal.handlers.SaveHandler"
+            id="SaveRecordAction"
+            name="Save Record">
+      </command>
+      <command
+            id="RemoveRecordAction"
+            name="Remove record">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
    </extension>
 
 </plugin>

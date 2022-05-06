@@ -1,21 +1,29 @@
 package dataModel;
 
 public class SessionManager {
-	
+
 	private static Node session;
 	private static Node currentRefrence;
-    private static String fileName;
-    
+	private static String fileName;
+
 	public static synchronized Node getSession() {
 		if (session == null) {
-			session = new Node();
+			Node node = new Node();
+			Node root = node.createSubFolder("root");
+			session = node;
 			currentRefrence = session;
 		}
 		return session;
 	}
 
+	public static void setSession(Node newSession) {
+		session = newSession;
+	}
+
 	private SessionManager() {
-		session = new Node();
+		Node node = new Node();
+		Node root = node.createSubFolder("root");
+		session = root;
 		currentRefrence = session;
 	}
 
@@ -27,13 +35,13 @@ public class SessionManager {
 	}
 
 	public static synchronized void setCurrentRefrence(Node newCurrent) {
-			currentRefrence = newCurrent;
+		currentRefrence = newCurrent;
 	}
-	
+
 	public static synchronized String getFileName() {
 		return fileName;
 	}
-	
+
 	public static synchronized void setFileName(String file) {
 		fileName = file;
 	}
@@ -41,7 +49,6 @@ public class SessionManager {
 	public static synchronized void clearSession() {
 		session = null;
 		session = SessionManager.getSession();
-		fileName="";
+		fileName = "";
 	}
-
 }

@@ -1,9 +1,5 @@
 package toRemove;
 
-import mailrcp.MessagePopupAction;
-import mailrcp.OpenViewAction;
-import mailrcp.View;
-
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.ICoolBarManager;

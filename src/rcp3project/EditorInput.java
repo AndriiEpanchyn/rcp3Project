@@ -10,7 +10,6 @@ public class EditorInput implements IEditorInput {
 	public final static String ID = "EditorInput";
 	Node currentRefrence;
 
-	
 	public EditorInput(Node current) {
 		this.currentRefrence = current;
 	}
@@ -43,5 +42,9 @@ public class EditorInput implements IEditorInput {
 	@Override
 	public String getToolTipText() {
 		return currentRefrence.getName();
+	}
+
+	public Node getRecord() {
+		return currentRefrence;
 	}
 }
