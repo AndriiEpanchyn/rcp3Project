@@ -13,6 +13,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
@@ -47,8 +49,20 @@ public class NavigationView extends ViewPart {
 				SessionManager.setCurrentRefrence(currentNode);
 				if (currentNode.isLeaf()) {
 					try {
-						IEditorPart f = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-								.openEditor(new EditorInput(currentNode), FormEditor.ID);
+						boolean isEditorAlreadyOpened = false;
+						IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+						IEditorReference[] eRefs = page.getEditorReferences();
+						for (IEditorReference ref : eRefs) {
+							FormEditor editor1 = (FormEditor) ref.getEditor(false);
+							if (editor1.getEditorsNode().hashCode() == currentNode.hashCode()) {
+								page.activate(editor1);
+								isEditorAlreadyOpened = true;
+								break;
+							}
+						}
+						if (!isEditorAlreadyOpened) {
+							IEditorPart newEditorWindow = page.openEditor(new EditorInput(currentNode), FormEditor.ID);
+						}
 					} catch (PartInitException e) {
 						e.printStackTrace();
 					}
