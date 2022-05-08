@@ -67,17 +67,12 @@ public class Node {
 		}
 	}
 
-	public Node createLeaf(Node parent, String name) {
-		if (isAdditionAdmissible(parent)) {
-			Node node = new Node();
-			node.parent = parent;
-			parent.children.add(node);
-			node.children = new ArrayList<Node>();
+	public Node createLeaf(String name) {
+		if (isAdditionAdmissible(this)) {
+			Node node = new Node(name);
+			node.parent = this;
+			this.children.add(node);
 			node.isLeaf = true;
-			node.name = name;
-			node.address = "";
-			node.city = "";
-			node.result = 0;
 			return node;
 		} else
 			return null;

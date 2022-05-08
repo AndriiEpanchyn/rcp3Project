@@ -10,7 +10,7 @@ public class SessionManager {
 		if (session == null) {
 			Node node = new Node();
 			Node root = node.createSubFolder("root");
-			session = node;
+			session = root;
 			currentRefrence = session;
 		}
 		return session;
@@ -30,6 +30,9 @@ public class SessionManager {
 	public static synchronized Node getCurrentRefrence() {
 		if (session == null) {
 			session = SessionManager.getSession();
+		}
+		if (currentRefrence == null) {
+			currentRefrence = session;
 		}
 		return currentRefrence;
 	}

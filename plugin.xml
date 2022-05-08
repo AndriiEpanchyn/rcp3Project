@@ -27,7 +27,7 @@
             class="rcp3project.NavigationView"
             fastViewWidthRatio="0.15"
             id="rcp3project.NavigationView"
-            name="Navi"
+            name="Explorer"
             restorable="true">
       </view>
    </extension>
@@ -93,7 +93,8 @@
                      style="push">
                </command>
                <command
-                     commandId="rcp3Project.command9"
+                     commandId="RemoveRecordAction"
+                     icon="icons/removeRecord16x16.png"
                      label="Delete group"
                      style="push">
                </command>
@@ -101,17 +102,20 @@
             <menu
                   label="Student">
                <command
-                     commandId="rcp3Project.command10"
+                     commandId="AddRecordAction"
+                     icon="icons/addRecord16x16.png"
                      label="New Student"
                      style="push">
                </command>
                <command
-                     commandId="rcp3Project.command11"
-                     label="Edit student"
+                     commandId="SaveRecordAction"
+                     icon="icons/saveRecord16x16.png"
+                     label="Save student"
                      style="push">
                </command>
                <command
-                     commandId="org.eclipse.ui.edit.delete"
+                     commandId="RemoveRecordAction"
+                     icon="icons/removeRecord16x16.png"
                      id="Delete student"
                      label="Delete student"
                      style="push">
@@ -140,6 +144,10 @@
       <menuContribution
             allPopups="true"
             locationURI=" toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="rcp3Project.toolbar1"
+               label="AndreyToolbar">
+         </toolbar>
       </menuContribution>
    </extension>
    <extension
@@ -155,12 +163,17 @@
          point="org.eclipse.ui.commands">
       <command
             defaultHandler="org.eclipse.ui.internal.handlers.SaveHandler"
+            description="Save Record"
             id="SaveRecordAction"
             name="Save Record">
       </command>
       <command
             id="RemoveRecordAction"
             name="Remove record">
+      </command>
+      <command
+            id="AddRecordAction"
+            name="Add record">
       </command>
    </extension>
    <extension

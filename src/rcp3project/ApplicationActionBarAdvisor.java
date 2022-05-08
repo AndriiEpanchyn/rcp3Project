@@ -3,6 +3,7 @@ package rcp3project;
 import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
@@ -12,6 +13,7 @@ import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 
+import actions.EditMenu.AddRecordAction;
 import actions.EditMenu.RemoveRecordAction;
 import actions.EditMenu.SaveRecordAction;
 // import actions.EditMenu.SaveRecordAction;
@@ -24,6 +26,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private NewFileAction newFileAction;
 	private SaveRecordAction saveRecordAction;
 	private RemoveRecordAction removeRecordAction;
+	private AddRecordAction addRecordAction;
 
 	public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
 		super(configurer);
@@ -47,6 +50,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
 		removeRecordAction = new RemoveRecordAction(window);
 		register(removeRecordAction);
+
+		addRecordAction = new AddRecordAction(window);
+		register(addRecordAction);
 	}
 
 	@Override
@@ -60,8 +66,12 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		IToolBarManager toolbar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
 		coolBar.add(new ToolBarContributionItem(toolbar, "main"));
 		toolbar.add(newFileAction);
+		toolbar.add(new Separator());
+		toolbar.add(addRecordAction);
 		toolbar.add(saveRecordAction);
 		toolbar.add(removeRecordAction);
+		toolbar.add(new Separator());
+
 	}
 
 	public void getFillCoolBar() {

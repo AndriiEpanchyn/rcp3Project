@@ -7,6 +7,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -71,16 +72,63 @@ public class FormEditor extends EditorPart {
 
 		labelGroup = createLabel(mainComposite, "Group");
 		textGroup = createText(mainComposite, group);
+		textGroup.addModifyListener(new ModifyListener() {
+			@Override
+			public void modifyText(ModifyEvent e) {
+				if (!textGroup.getText().equals(group)) {
+					setDirty(true);
+					setPartName("*" + name);
+				}
+			}
+		});
 		textGroup.setEnabled(false);
 
 		labelAddress = createLabel(mainComposite, "Address");
 		textAddress = createText(mainComposite, address);
+		textAddress.addModifyListener(new ModifyListener() {
+			@Override
+			public void modifyText(ModifyEvent e) {
+				if (!textAddress.getText().equals(address)) {
+					setDirty(true);
+					setPartName("*" + name);
+				}
+			}
+		});
 
 		labelCity = createLabel(mainComposite, "City");
 		textCity = createText(mainComposite, city);
+		textCity.addVerifyListener(FormEditor::ensureTextContainsOnlyTwoWordsWithSpaceAsDelimeter);
+		textCity.addModifyListener(new ModifyListener() {
+			@Override
+			public void modifyText(ModifyEvent e) {
+				if (!textCity.getText().equals(city)) {
+					setDirty(true);
+					setPartName("*" + name);
+				}
+			}
+		});
 
 		labelResult = createLabel(mainComposite, "Result");
 		textResult = createText(mainComposite, result);
+		textResult.addVerifyListener(new VerifyListener() {
+			@Override
+			public void verifyText(VerifyEvent e) {
+				String string = e.text;
+				e.doit = (string.matches("\\d*"));
+				return;
+			}
+
+		});
+		textResult.addModifyListener(new ModifyListener() {
+			@Override
+			public void modifyText(ModifyEvent e) {
+				if (!textResult.getText().equals(result)) {
+					setDirty(true);
+					setPartName("*" + name);
+				}
+			}
+		});
+
 	}
 
 	public void setFields() {
@@ -235,6 +283,6 @@ public class FormEditor extends EditorPart {
 	private static void ensureTextContainsOnlyTwoWordsWithSpaceAsDelimeter(VerifyEvent e) {
 		String currentChar = e.text;
 		String text = ((Text) e.widget).getText() + currentChar;
-		e.doit = (text.matches("[a-zA-Zà-ÿÀ-ß³²¿¯ºª']+[ ]{0,1}[a-zA-Zà-ÿÀ-ß³²¿¯ºª']*") && text.length() > 0);
+		e.doit = (text.matches("[a-zA-Zà-ÿÀ-ß³²¿¯ºª']+[ ]{0,1}[a-zA-Zà-ÿÀ-ß³²¿¯ºª' ]*") && text.length() > 0);
 	}
 }
