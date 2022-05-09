@@ -3,7 +3,6 @@ package rcp3project;
 import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
@@ -13,13 +12,14 @@ import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 
-import actions.EditMenu.AddFolderAction;
-import actions.EditMenu.AddRecordAction;
+import actions.EditMenu.AddAction;
 import actions.EditMenu.RemoveRecordAction;
+import actions.EditMenu.RenameFolderAction;
 import actions.EditMenu.SaveRecordAction;
 // import actions.EditMenu.SaveRecordAction;
 import actions.FileMenu.AboutWindowAction;
 import actions.FileMenu.NewFileAction;
+import toRemove.AddFolderAction;
 
 public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private AboutWindowAction aboutAction;
@@ -27,8 +27,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private NewFileAction newFileAction;
 	private SaveRecordAction saveRecordAction;
 	private RemoveRecordAction removeRecordAction;
-	private AddRecordAction addRecordAction;
+	private AddAction addAction;
 	private AddFolderAction addFolderAction;
+	private RenameFolderAction renameFolderAction;
 
 	public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
 		super(configurer);
@@ -53,11 +54,15 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		removeRecordAction = new RemoveRecordAction(window);
 		register(removeRecordAction);
 
-		addRecordAction = new AddRecordAction(window);
-		register(addRecordAction);
+		addAction = new AddAction(window);
+		register(addAction);
 
-		addFolderAction = new AddFolderAction(window);
-		register(addFolderAction);
+//		addFolderAction = new AddFolderAction(window);
+//		register(addFolderAction);
+
+		renameFolderAction = new RenameFolderAction(window);
+		register(renameFolderAction);
+
 	}
 
 	@Override
@@ -70,13 +75,14 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		super.fillCoolBar(coolBar);
 		IToolBarManager toolbar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
 		coolBar.add(new ToolBarContributionItem(toolbar, "main"));
-		toolbar.add(newFileAction);
-		toolbar.add(new Separator());
-		toolbar.add(addRecordAction);
-		toolbar.add(saveRecordAction);
-		toolbar.add(removeRecordAction);
-		toolbar.add(new Separator());
-		toolbar.add(addFolderAction);
+//		toolbar.add(newFileAction);
+//		toolbar.add(new Separator());
+//		toolbar.add(addAction);
+//		toolbar.add(saveRecordAction);
+//		toolbar.add(removeRecordAction);
+//		toolbar.add(new Separator());
+//		// toolbar.add(addFolderAction);
+//		toolbar.add(renameFolderAction);
 
 	}
 

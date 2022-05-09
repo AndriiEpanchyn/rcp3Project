@@ -9,7 +9,7 @@ public class SessionManager {
 	public static synchronized Node getSession() {
 		if (session == null) {
 			Node node = new Node();
-			Node root = node.createSubFolder("root");
+			Node root = node.createSubFolder("Folder");
 			session = root;
 			currentRefrence = session;
 		}
@@ -22,7 +22,7 @@ public class SessionManager {
 
 	private SessionManager() {
 		Node node = new Node();
-		Node root = node.createSubFolder("root");
+		Node root = node.createSubFolder("Folder");
 		session = root;
 		currentRefrence = session;
 	}

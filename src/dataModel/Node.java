@@ -87,7 +87,7 @@ public class Node {
 
 	public static Node makeDummyTree() {
 		Node node = new Node();
-		Node root = node.createSubFolder("root");
+		Node root = node.createSubFolder("Folder");
 		Node simpsons = root.createSubFolder("Simpsons");
 		Node simpsonHomer = new Node(simpsons, null, "Homer Simpson", true, "building 1", "Simpsons town", 3,
 				"src/photos/SimpsonHomer256x256.png");

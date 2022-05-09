@@ -33,38 +33,37 @@ public class RemoveRecordAction extends Action {
 		setImageDescriptor(ImageDescriptor.createFromURL(fileURL));
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void run() {
 		IWorkbenchPage page = window.getActivePage();
 		Node leafToRemove;
 		leafToRemove = SessionManager.getCurrentRefrence();
 
-		if (leafToRemove.getName().equals("root")) {// Blocks removing root
+		if (leafToRemove.getName().equals("Folder")) {// Blocks removing root
 			Status status = new Status(IStatus.ERROR, "actions.EditMenu", "ROOT is not removable mandatory folder");
 			ErrorDialog.openError(window.getShell(), "Error", "Root folder cann't be removed", status);
+
 		} else if (leafToRemove.isLeaf() == true) {// removing leaf
 			MessageDialog dialog = new MessageDialog(window.getShell(), "Confirm removing", null,
 					"Do you confirm removing of the " + leafToRemove.getName() + "?", MessageDialog.CONFIRM,
 					new String[] { "Yes", "NO" }, 1);
 			int result = dialog.open();
 			if (result == 0) {
-				IEditorReference[] eRefs = page.getEditorReferences();
-				for (IEditorReference ref : eRefs) {
-					FormEditor editor1 = (FormEditor) ref.getEditor(false);
-					if (editor1.getEditorsNode().hashCode() == leafToRemove.hashCode()) {
-						page.closeEditor(editor1, false);
-					}
-				}
-				leafToRemove.removeLeaf();
+				closeOpenedEditors(page, leafToRemove);
 			}
+			leafToRemove.removeLeaf();
+
 		} else if (leafToRemove.hasChildren()) {// remove full folder
 			MessageDialog dialog = new MessageDialog(window.getShell(), "Confirm removing NOT EMPTY folder", null,
 					"Do you confirm removing of the NOT EMPTY FOLDER: \n" + leafToRemove.getName() + "?",
 					MessageDialog.CONFIRM, new String[] { "Yes", "NO" }, 1);
 			int result = dialog.open();
 			if (result == 0) {
+				closeChildrenEditors(page, leafToRemove);
 				leafToRemove.removeFullSubfolder();
 			}
+
 		} else {// remove empty folder
 			MessageDialog dialog = new MessageDialog(window.getShell(), "Confirm removing empty folder", null,
 					"Do you confirm removing of the empty folder: \n" + leafToRemove.getName() + "?",
@@ -78,4 +77,23 @@ public class RemoveRecordAction extends Action {
 		navigationView.redrawTree();
 	}
 
+	private void closeOpenedEditors(IWorkbenchPage page, Node leafToRemove) {
+		IEditorReference[] eRefs = page.getEditorReferences();
+		for (IEditorReference ref : eRefs) {
+			FormEditor editor1 = (FormEditor) ref.getEditor(false);
+			if (editor1.getEditorsNode().hashCode() == leafToRemove.hashCode()) {
+				page.closeEditor(editor1, false);
+			}
+		}
+	}
+
+	private void closeChildrenEditors(IWorkbenchPage page, Node leafToRemove) {
+		IEditorReference[] eRefs = page.getEditorReferences();
+		for (IEditorReference ref : eRefs) {
+			FormEditor editor1 = (FormEditor) ref.getEditor(false);
+			if (editor1.getEditorsNode().getParent().hashCode() == leafToRemove.hashCode()) {
+				page.closeEditor(editor1, false);
+			}
+		}
+	}
 }

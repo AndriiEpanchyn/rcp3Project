@@ -83,13 +83,15 @@
             <menu
                   label="Group">
                <command
-                     commandId="AddFolderAction"
+                     commandId="AddAction"
                      icon="icons/addFolder16x16.png"
                      label="Add Folder"
                      style="push">
                </command>
                <command
-                     commandId="rcp3Project.command8"
+                     commandId="RenameFolderAction"
+                     icon="icons/renameFolderAction16x16.png"
+                     id="renameFolderAction"
                      label="Edit group"
                      style="push">
                </command>
@@ -103,7 +105,7 @@
             <menu
                   label="Student">
                <command
-                     commandId="AddRecordAction"
+                     commandId="AddAction"
                      icon="icons/addRecord16x16.png"
                      label="New Student"
                      style="push">
@@ -145,6 +147,57 @@
       <menuContribution
             allPopups="true"
             locationURI=" toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="rcp3Project.toolbar1"
+               label="Default toolbar">
+            <separator
+                  name="rcp3Project.separator0">
+            </separator>
+            <command
+                  commandId="rcp3Project.NewFileAction"
+                  icon="icons/newFile16x16.png"
+                  label="New File"
+                  style="push"
+                  tooltip="New File">
+            </command>
+            <separator
+                  name="rcp3Project.separator1">
+            </separator>
+            <command
+                  commandId="AddAction"
+                  icon="icons/addRecord16x16.png"
+                  label="Add object"
+                  style="push"
+                  tooltip="Add object">
+            </command>
+            <command
+                  commandId="RemoveRecordAction"
+                  disabledIcon="icons/removeRecord16x16.png"
+                  icon="icons/removeRecord16x16.png"
+                  label="Remove object"
+                  style="push"
+                  tooltip="Remove object">
+            </command>
+            <command
+                  commandId="SaveRecordAction"
+                  disabledIcon="icons/saveRecord16x16.png"
+                  icon="icons/saveRecord16x16.png"
+                  label="Save record"
+                  style="push"
+                  tooltip="Save record">
+            </command>
+            <command
+                  commandId="RenameFolderAction"
+                  disabledIcon="icons/renameFolderAction16x16.png"
+                  icon="icons/renameFolderAction16x16.png"
+                  label="Rename folder"
+                  style="push"
+                  tooltip="Rename folder">
+            </command>
+            <separator
+                  name="rcp3Project.separator2">
+            </separator>
+         </toolbar>
       </menuContribution>
    </extension>
    <extension
@@ -169,12 +222,16 @@
             name="Remove record">
       </command>
       <command
-            id="AddRecordAction"
-            name="Add record">
+            id="AddAction"
+            name="Add Action">
       </command>
       <command
             id="AddFolderAction"
             name="Add Folder">
+      </command>
+      <command
+            id="RenameFolderAction"
+            name="Rename Folder">
       </command>
    </extension>
    <extension
