@@ -83,8 +83,9 @@
             <menu
                   label="Group">
                <command
-                     commandId="rcp3Project.command7"
-                     label="New group"
+                     commandId="AddFolderAction"
+                     icon="icons/addFolder16x16.png"
+                     label="Add Folder"
                      style="push">
                </command>
                <command
@@ -144,10 +145,6 @@
       <menuContribution
             allPopups="true"
             locationURI=" toolbar:org.eclipse.ui.main.toolbar">
-         <toolbar
-               id="rcp3Project.toolbar1"
-               label="AndreyToolbar">
-         </toolbar>
       </menuContribution>
    </extension>
    <extension
@@ -174,6 +171,10 @@
       <command
             id="AddRecordAction"
             name="Add record">
+      </command>
+      <command
+            id="AddFolderAction"
+            name="Add Folder">
       </command>
    </extension>
    <extension

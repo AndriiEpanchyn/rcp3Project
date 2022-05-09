@@ -13,6 +13,7 @@ import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 
+import actions.EditMenu.AddFolderAction;
 import actions.EditMenu.AddRecordAction;
 import actions.EditMenu.RemoveRecordAction;
 import actions.EditMenu.SaveRecordAction;
@@ -27,6 +28,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private SaveRecordAction saveRecordAction;
 	private RemoveRecordAction removeRecordAction;
 	private AddRecordAction addRecordAction;
+	private AddFolderAction addFolderAction;
 
 	public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
 		super(configurer);
@@ -53,6 +55,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
 		addRecordAction = new AddRecordAction(window);
 		register(addRecordAction);
+
+		addFolderAction = new AddFolderAction(window);
+		register(addFolderAction);
 	}
 
 	@Override
@@ -71,6 +76,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		toolbar.add(saveRecordAction);
 		toolbar.add(removeRecordAction);
 		toolbar.add(new Separator());
+		toolbar.add(addFolderAction);
 
 	}
 
