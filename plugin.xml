@@ -199,6 +199,49 @@
             </separator>
          </toolbar>
       </menuContribution>
+      <menuContribution
+            allPopups="true"
+            locationURI="popup:rcp3project.NavigationView">
+         <command
+               commandId="OpenEditorAction"
+               icon="icons/eclipse16.png"
+               label="Open"
+               style="push">
+         </command>
+         <command
+               commandId="AddAction"
+               icon="icons/addRecord16x16.png"
+               label="Add object"
+               style="push">
+         </command>
+         <command
+               commandId="RemoveRecordAction"
+               icon="icons/removeRecord16x16.png"
+               label="Remove object"
+               style="push">
+         </command>
+         <command
+               commandId="RenameFolderAction"
+               icon="icons/renameFolderAction16x16.png"
+               label="Rename Action"
+               style="push">
+         </command>
+         <menu
+               label="tree">
+            <command
+                  commandId="CollapseTreeAction"
+                  icon="icons/collapseAction16x16.png"
+                  label="Collapse"
+                  style="toggle">
+            </command>
+            <command
+                  commandId="ExpandTreeAction"
+                  icon="/icons/expandAction16x16.png"
+                  label="Expand/Close"
+                  style="radio">
+            </command>
+         </menu>
+      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.ui.editors">
@@ -233,9 +276,26 @@
             id="RenameFolderAction"
             name="Rename Folder">
       </command>
+      <command
+            id="ExpandTreeAction"
+            name="Expand tree">
+      </command>
+      <command
+            id="CollapseTreeAction"
+            name="Collapse">
+      </command>
+      <command
+            id="OpenEditorAction"
+            name="Open">
+      </command>
    </extension>
    <extension
+         id="rcp3Project.actions.EditMenu.MyPopupHandler"
          point="org.eclipse.ui.handlers">
+      <handler
+            class="rcp3Project.actions.EditMenu.MyPopupHandler"
+            commandId="rcp3Project.actions.EditMenu.MyPopupHandler">
+      </handler>
    </extension>
 
 </plugin>

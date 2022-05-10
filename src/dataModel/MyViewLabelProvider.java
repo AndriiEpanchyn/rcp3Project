@@ -9,15 +9,16 @@ public class MyViewLabelProvider extends LabelProvider {
 
 	@Override
 	public String getText(Object obj) {
-		return ((Node)obj).getName();
+		return ((Node) obj).getName();
 	}
 
 	@Override
 	public Image getImage(Object obj) {
 		String imageKey;
-		if(((Node)obj).isLeaf()) {
-			imageKey = ISharedImages.IMG_OBJ_ELEMENT;
-		} else {		
+
+		if (((Node) obj).isLeaf()) {
+			imageKey = ISharedImages.IMG_OBJ_FILE;
+		} else {
 			imageKey = ISharedImages.IMG_OBJ_FOLDER;
 		}
 		return PlatformUI.getWorkbench().getSharedImages().getImage(imageKey);
