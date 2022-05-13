@@ -131,6 +131,7 @@ public class Node {
 		flingstones.createLeaf(flingstoneBarney);
 		flingstones.createLeaf(flingstoneBetty);
 		flingstones.createLeaf(flingstoneBamBam);
+		flingstones.setPicStatus(1);
 
 		Node additionalPersonage = new Node(root, null, "Additional personage", true, "building 1", "Flingstone town",
 				3, null);

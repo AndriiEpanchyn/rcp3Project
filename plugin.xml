@@ -249,35 +249,35 @@
          </separator>
          
          <command
-               commandId="ChangeTreeViewStatus"
+               commandId="radioStateParameter"
                id="ChangeTreeViewStatus.menu.radio1"
                label="Unchecked"
                style="radio">
 			<parameter
-                 	 name="ChangeTreeViewStatus"
+                 	 name="org.eclipse.ui.commands.radioStateParameter"
                		 value="0">   
             </parameter>
          </command>
          <command
-               commandId="ChangeTreeViewStatus"
+               commandId="radioStateParameter"
                
                id="ChangeTreeViewStatus.menu.radio2"
                label="Cheked"
                style="radio">
             <parameter
-                  name="ChangeTreeViewStatus"
+                  name="org.eclipse.ui.commands.radioStateParameter"
                   value="1">
             </parameter>
          </command>
          
          <command
-               commandId="ChangeTreeViewStatus"
+               commandId="radioStateParameter"
                
                id="ChangeTreeViewStatus.menu.radio3"
                label="Denied"
                style="radio">
             <parameter
-                  name="ChangeTreeViewStatus"
+                  name="org.eclipse.ui.commands.radioStateParameter"
                   value="2">
             </parameter>
          </command>
@@ -344,10 +344,10 @@
  //===============Comand================================     
       <command
             defaultHandler="actions.EditMenu.RadioHandler"
-            id="ChangeTreeViewStatus"
+            id="radioStateParameter"
             name="Radio Example">
          <commandParameter
-               id="ChangeTreeViewStatus"
+               id="org.eclipse.ui.commands.radioStateParameter"
                name="State"
                optional="false">
          </commandParameter>
@@ -364,7 +364,7 @@
          point="org.eclipse.ui.handlers">
       <handler
             class="actions.EditMenu.RadioHandler"
-            commandId="ChangeTreeViewStatusHandler.radio">
+            commandId="radioStateParameter.radio">
       </handler>
    </extension>
 
