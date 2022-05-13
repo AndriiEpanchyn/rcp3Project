@@ -6,13 +6,15 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
@@ -39,9 +41,10 @@ public class FormEditor extends EditorPart {
 
 	Label labelName, labelGroup, labelAddress, labelCity, labelResult, photoLabel;
 	Text textName, textGroup, textAddress, textCity, textResult;
-	Canvas canvas;
+
 	Image photo;
 	String emptyFileName = "src/photos/_noPhoto256x256.png";
+	Text labelPath;
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -69,6 +72,29 @@ public class FormEditor extends EditorPart {
 		photoLabel = new Label(mainComposite, SWT.BORDER);
 		photoLabel.setLayoutData(createPhotoGrid());
 		photoLabel.setImage(convertPhotoForLabel(photoFileName));
+		photoLabel.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				String openedFile = chooseFile();
+				photoFileName = openedFile;
+				labelPath.setText(photoFileName);
+				photoLabel.setImage(convertPhotoForLabel(photoFileName));
+				setDirty(true);
+				setPartName("*" + name);
+			}
+
+			@Override
+			public void mouseDown(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseUp(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		labelGroup = createLabel(mainComposite, "Group");
 		textGroup = createText(mainComposite, group);
@@ -129,6 +155,8 @@ public class FormEditor extends EditorPart {
 			}
 		});
 
+		labelPath = createText(mainComposite, photoFileName);
+
 	}
 
 	public void setFields() {
@@ -146,14 +174,15 @@ public class FormEditor extends EditorPart {
 		textAddress.redraw();
 		textCity.redraw();
 		textResult.redraw();
+		// insertPhotoForLabel(photoLabel, photoFileName);
 		photoLabel.redraw();
+		labelPath.redraw();
 		NavigationView n;
 		try {
 			n = (NavigationView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 					.showView(NavigationView.ID);
 			n.redrawTree();
 		} catch (PartInitException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -176,6 +205,7 @@ public class FormEditor extends EditorPart {
 		Label label = new Label(mainComposite, SWT.NONE);
 		label.setText(strLabel);
 		label.setLayoutData(labelGrid);
+
 		return label;
 	}
 
@@ -189,6 +219,8 @@ public class FormEditor extends EditorPart {
 		textGrid.horizontalSpan = 2;
 		textGrid.minimumWidth = 60;
 
+		if (label == null)
+			label = "";
 		Text text = new Text(parent, SWT.BORDER);
 		text.setText(label);
 		text.setLayoutData(textGrid);
@@ -208,27 +240,15 @@ public class FormEditor extends EditorPart {
 	}
 
 	private Image convertPhotoForLabel(String fileName) {
-		if (fileName == null || fileName.isEmpty() || new File(fileName).isFile()) {
+		if (fileName == null || fileName.isEmpty()) {
 			fileName = emptyFileName;
 		}
-
-		Image photo = new Image(photoLabel.getShell().getDisplay(),
-				Application.class.getClassLoader().getResourceAsStream(fileName));
-//		int photoWidth = photo.getBounds().width;
-//		int photoHeight = photo.getBounds().height;
-//	
-//		int labelWidth = 256;
-//		int labelHeight = 256;
-//		float k;
-//		if(labelWidth>labelHeight) {
-//			k=(Float.valueOf(labelHeight))/(Float.valueOf(photoHeight));
-//			System.out.println("k= "+k+"Label H= "+Float.valueOf(labelHeight)+"; photo H= "+Float.valueOf(photoHeight));
-//		} else {
-//			k=(Float.valueOf(labelWidth))/(Float.valueOf(photoWidth));
-//			System.out.println("k= "+k+"Label H= "+Float.valueOf(labelWidth)+"; photo H= "+Float.valueOf(photoWidth));
-//		}
-		// System.out.println("k= "+k+" w= "+(int)(photoWidth*k)+"; h=
-		// "+(int)(photoHeight*k));
+		if (new File(fileName).isAbsolute()) {
+			photo = new Image(photoLabel.getShell().getDisplay(), fileName);
+		} else {
+			photo = new Image(photoLabel.getShell().getDisplay(),
+					Application.class.getClassLoader().getResourceAsStream(fileName));
+		}
 		final Image answer = new Image(photoLabel.getShell().getDisplay(), photo.getImageData().scaledTo(256, 256));
 		return answer;
 	}
@@ -246,6 +266,7 @@ public class FormEditor extends EditorPart {
 			currentReference.setCity(textCity.getText());
 			currentReference.setResult(Integer.parseInt(textResult.getText()));
 			currentReference.setPhoto(photoFileName);
+			SessionManager.setCurrentRefrence(currentReference);
 			setDirty(false);
 			setPartName(currentReference.getName());
 			refreshAll();
@@ -254,7 +275,6 @@ public class FormEditor extends EditorPart {
 
 	@Override
 	public void doSaveAs() {
-
 	}
 
 	@Override
@@ -285,4 +305,25 @@ public class FormEditor extends EditorPart {
 		String text = ((Text) e.widget).getText() + currentChar;
 		e.doit = (text.matches("[a-zA-Zà-ÿÀ-ß³²¿¯ºª']+[ ]{0,1}[a-zA-Zà-ÿÀ-ß³²¿¯ºª' ]*") && text.length() > 0);
 	}
+
+	private String chooseFile() {
+		final String[] FILTER_NAMES = { "PNG (*.png)", "JPG (*.JPG)", "All Files (*.*)" };
+		// These filter extensions are used to filter which files are displayed.
+		final String[] FILTER_EXTS = { "*.png", "*.JPG", "*.*" };
+		String fileName = "";
+		FileDialog dlg = new FileDialog(mainComposite.getShell(), SWT.OPEN);
+		dlg.setFilterNames(FILTER_NAMES);
+		dlg.setFilterExtensions(FILTER_EXTS);
+		fileName = dlg.open();
+		System.out.println("");
+		dlg.getFileName();
+		if (fileName != null && !fileName.equals("")) {
+			File inputFile = new File(fileName);
+			if (!inputFile.exists() || !inputFile.canRead()) {
+				fileName = "";
+			}
+		}
+		return fileName;
+	}
+
 }

@@ -68,7 +68,6 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
 		open = new OpenEditorAction(window);
 		register(open);
-
 	}
 
 	@Override

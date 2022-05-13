@@ -16,7 +16,7 @@ public class ExpandTreeAction extends Action {
 	IWorkbenchWindow window;
 	private final String ACTION_ID = "ExpandTreeAction";
 	private final String EXPAND_ALL_ICON = "/icons/expandAction16x16.png";
-//	 private final String COLLAPS_ALL_ICON = "/icons/collapseAction16x16.png";
+//	private final String COLLAPS_ALL_ICON = "/icons/collapseAction16x16.png";
 
 	String fileName = EXPAND_ALL_ICON;
 	NavigationView navigationView;

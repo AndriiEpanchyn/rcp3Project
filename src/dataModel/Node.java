@@ -6,6 +6,7 @@ public class Node {
 	private Node parent;
 	private ArrayList<Node> children;
 	private String name;
+	private int picStatus; // 0 - unchecked, 1 - checked, 2 - declined
 
 	private boolean isLeaf;
 	private String address; // Set only if isLeaf=true;
@@ -17,6 +18,7 @@ public class Node {
 		this.parent = null;
 		this.children = new ArrayList<Node>();
 		this.isLeaf = false;
+		this.picStatus = 0;
 		this.name = "";
 		this.address = "";
 		this.city = "";
@@ -28,6 +30,7 @@ public class Node {
 		this.parent = null;
 		this.children = new ArrayList<Node>();
 		this.isLeaf = false;
+		this.picStatus = 0;
 		this.name = name;
 		this.address = "";
 		this.city = "";
@@ -41,6 +44,7 @@ public class Node {
 		this.children = children;
 		this.isLeaf = isLeaf;
 		this.name = name;
+		this.picStatus = 0;
 		this.address = address;
 		this.city = city;
 		this.result = result;
@@ -55,6 +59,7 @@ public class Node {
 			this.children.add(node);
 			node.isLeaf = false;
 			node.name = name;
+			node.picStatus = 0;
 			return node;
 		} else
 			return null;
@@ -71,6 +76,7 @@ public class Node {
 		if (isAdditionAdmissible(this)) {
 			Node node = new Node(name);
 			node.parent = this;
+			node.picStatus = 0;
 			this.children.add(node);
 			node.isLeaf = true;
 			return node;
@@ -99,12 +105,14 @@ public class Node {
 				"src/photos/SimpsonLisa256x256.png");
 		Node simpsonMaggy = new Node(simpsons, null, "Maggy Simpson", true, "building 1", "Simpsons town", 3,
 				"src/photos/SimpsonMaggie256x256.png");
+		simpsonMaggy.setPicStatus(1);
 
 		simpsons.createLeaf(simpsonHomer);
 		simpsons.createLeaf(simpsonMarge);
 		simpsons.createLeaf(simpsonBarth);
 		simpsons.createLeaf(simpsonElisabeth);
 		simpsons.createLeaf(simpsonMaggy);
+		simpsons.setPicStatus(2);
 
 		Node flingstones = root.createSubFolder("Flingstones");
 		Node flingstoneFred = new Node(flingstones, null, "Fred Flingstone", true, "building 1", "Flingstone town", 3,
@@ -127,6 +135,7 @@ public class Node {
 		Node additionalPersonage = new Node(root, null, "Additional personage", true, "building 1", "Flingstone town",
 				3, null);
 		root.createLeaf(additionalPersonage);
+		additionalPersonage.setPicStatus(2);
 		return node;
 	}
 
@@ -227,6 +236,18 @@ public class Node {
 	public void setPhoto(String photo) { // Shouldn't set value if object is folder
 		if (this.isLeaf)
 			this.photoFileName = photo;
+	}
+
+	public void setPicStatus(int value) {
+		if (value == 0 || value == 1 || value == 2) {
+			this.picStatus = value;
+		} else {
+			this.picStatus = 0;
+		}
+	}
+
+	public int getPicStatus() {
+		return this.picStatus;
 	}
 
 	@Override

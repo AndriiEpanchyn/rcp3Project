@@ -32,6 +32,7 @@ public class NavigationView extends ViewPart {
 	Node session = Node.makeDummyTree();
 	Node currentNode = SessionManager.getCurrentRefrence();
 	boolean expandStatus = false;
+	private int picStatus;
 
 	@Override
 	public void createPartControl(Composite parent) {
