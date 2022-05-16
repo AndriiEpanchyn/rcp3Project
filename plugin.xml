@@ -77,6 +77,12 @@
                   style="push"
                   tooltip="Exit programm">
             </command>
+            <command
+                  commandId="rcp3Project.SaveAsFileAction"
+                  icon="icons/saveRecord16x16.png"
+                  label="Save as"
+                  style="push">
+            </command>
          </menu>
          <menu
                label="Edit">
@@ -260,7 +266,6 @@
          </command>
          <command
                commandId="radioStateParameter"
-               
                id="ChangeTreeViewStatus.menu.radio2"
                label="Cheked"
                style="radio">
@@ -269,10 +274,8 @@
                   value="1">
             </parameter>
          </command>
-         
          <command
                commandId="radioStateParameter"
-               
                id="ChangeTreeViewStatus.menu.radio3"
                label="Denied"
                style="radio">
@@ -349,22 +352,30 @@
          <commandParameter
                id="org.eclipse.ui.commands.radioStateParameter"
                name="State"
-               optional="false">
+               optional="false"
+               values="MyStateParams">
          </commandParameter>
          <state
-             class="org.eclipse.ui.handlers.RadioState:0"
-             id="org.eclipse.ui.commands.radioState">
-  		 </state>
+               class="org.eclipse.ui.handlers.RadioState"
+               id="rcp3Project.state1">
+         </state>
        </command>
+      <command
+            id="rcp3Project.SaveAsFileAction"
+            name="Save as">
+      </command>
       
    </extension>
    <extension
          id="actions.EditMenu.RadioHandler"
-         name="RadioHandler"
+         name="MenuHandler"
          point="org.eclipse.ui.handlers">
       <handler
             class="actions.EditMenu.RadioHandler"
             commandId="radioStateParameter.radio">
+      </handler>
+      <handler
+            commandId="rcp3Project.handler1">
       </handler>
    </extension>
 

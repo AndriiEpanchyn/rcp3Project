@@ -5,12 +5,13 @@ public class SessionManager {
 	private static Node session;
 	private static Node currentRefrence;
 	private static String fileName;
+	public static boolean isNewFile;
 
 	public static synchronized Node getSession() {
 		if (session == null) {
 			Node node = new Node();
 			Node root = node.createSubFolder("Folder");
-			session = root;
+			session = node;
 			currentRefrence = session;
 		}
 		return session;
@@ -23,7 +24,7 @@ public class SessionManager {
 	private SessionManager() {
 		Node node = new Node();
 		Node root = node.createSubFolder("Folder");
-		session = root;
+		session = node;
 		currentRefrence = session;
 	}
 
@@ -53,5 +54,7 @@ public class SessionManager {
 		session = null;
 		session = SessionManager.getSession();
 		fileName = "";
+		isNewFile = true;
 	}
+
 }

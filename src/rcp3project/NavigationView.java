@@ -32,7 +32,6 @@ public class NavigationView extends ViewPart {
 	Node session = Node.makeDummyTree();
 	Node currentNode = SessionManager.getCurrentRefrence();
 	boolean expandStatus = false;
-	private int picStatus;
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -40,10 +39,8 @@ public class NavigationView extends ViewPart {
 		viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
 		viewer.setContentProvider(new MyContentProvider2());
 		viewer.setLabelProvider(new MyViewLabelProvider());
-//		viewer.setLabelProvider(new LabelProvider());
 		createColumn(viewer.getTree(), "Students");
 		viewer.setInput(session);
-		setExpandStatus(false);
 		viewer.getTree().setHeaderBackground(new Color(120, 120, 120));
 		viewer.getTree().setHeaderForeground(new Color(220, 220, 220));
 		viewer.addDoubleClickListener(new IDoubleClickListener() {
@@ -112,12 +109,11 @@ public class NavigationView extends ViewPart {
 		viewer.getTree().deselectAll();
 		session = SessionManager.getSession();
 		viewer.setInput(session);
-
-		if (expandStatus) {
-			viewer.expandAll();
-		} else {
-			viewer.collapseAll();
-		}
+//		if (expandStatus) {
+//			viewer.expandAll();
+//		} else {
+//			viewer.collapseAll();
+//		}
 		viewer.refresh();
 	}
 
@@ -125,20 +121,20 @@ public class NavigationView extends ViewPart {
 		return currentNode;
 	}
 
-	public void setExpandStatus(boolean status) {
-		this.expandStatus = status;
-//		if (expandStatus) {
-//			viewer.expandAll();
-//			System.out.println("Expanded");
-//		} else {
-//			
-//			System.out.println("Collapsed");
-//		}
+//	public void setExpandStatus(boolean status) {
+//		this.expandStatus = status;
+////		if (expandStatus) {
+////			viewer.expandAll();
+////			System.out.println("Expanded");
+////		} else {
+////			
+////			System.out.println("Collapsed");
+////		}
+//
+//	}
 
-	}
-
-	public boolean getExpandStatus() {
-		return this.expandStatus;
-	}
+//	public boolean getExpandStatus() {
+//		return this.expandStatus;
+//	}
 
 }

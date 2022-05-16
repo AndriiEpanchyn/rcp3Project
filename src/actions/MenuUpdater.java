@@ -1,0 +1,56 @@
+package actions;
+
+import java.util.Map;
+
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.commands.IHandler;
+import org.eclipse.core.commands.IHandlerListener;
+import org.eclipse.ui.commands.IElementUpdater;
+import org.eclipse.ui.menus.UIElement;
+
+public class MenuUpdater implements IHandler, IElementUpdater {
+
+	@Override
+	public void updateElement(UIElement element, Map parameters) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void addHandlerListener(IHandlerListener handlerListener) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isHandled() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void removeHandlerListener(IHandlerListener handlerListener) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

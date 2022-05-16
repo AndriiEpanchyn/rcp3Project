@@ -1,11 +1,9 @@
 package savers;
 
-import java.util.ArrayList;
-
-import jface.Entity;
+import dataModel.Node;
 
 public interface Savable {
-    boolean saveToFile(ArrayList<Entity> unsavedRecords, String fileName);
+	boolean saveToFile(Node unsavedRecords, String fileName);
 
-    ArrayList<Entity> readFromFile(String fileName);
+	Node readFromFile(String fileName);
 }

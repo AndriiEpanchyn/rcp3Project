@@ -9,65 +9,68 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import jface.Entity;
+import dataModel.Node;
+import dataModel.SessionManager;
 
 public class JsonSaver implements Savable {
 
-    @Override
-    public boolean saveToFile(ArrayList<Entity> unsavedRecords, String fileName) {
-	boolean answer = false;
-	Gson toGson = new GsonBuilder().setPrettyPrinting().create();
-	String outputString = toGson.toJson(unsavedRecords);
-	File myFile = new File(fileName);
-	try {
-	    @SuppressWarnings("resource")
-	    OutputStream fileStream = new FileOutputStream(myFile, false);
-	    @SuppressWarnings("resource")
-	    Writer writer = new BufferedWriter(new OutputStreamWriter(fileStream));
-	    writer.write(outputString);
-	    writer.close();
-	    answer = true;
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
-	return answer;
-    }
+	@Override
+	public boolean saveToFile(Node unsavedRecords, String fileName) {
+		boolean answer = false;
 
-    @Override
-    public ArrayList<Entity> readFromFile(String fileName) {
-	// Get string from file
-	StringBuilder out = new StringBuilder();
-	try {
-	    File file = new File(fileName);
-	    FileReader reader = new FileReader(file);
-	    Scanner scanner = new Scanner(reader);
-	    while (scanner.hasNextLine()) {
-		out.append(scanner.nextLine());
-	    }
-	    reader.close();
-	    scanner.close();
-	} catch (Exception e) {
-	    e.printStackTrace();
+		System.out.println("saving: " + unsavedRecords);
+		Gson toGson = new Gson();
+		System.out.println("toGson generated");
+		String outputString = toGson.toJson(unsavedRecords.toPrint());
+
+		File myFile = new File(fileName);
+		try {
+			@SuppressWarnings("resource")
+			OutputStream fileStream = new FileOutputStream(myFile, false);
+			@SuppressWarnings("resource")
+			Writer writer = new BufferedWriter(new OutputStreamWriter(fileStream));
+			writer.write(outputString);
+			writer.close();
+			answer = true;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return answer;
 	}
 
-	// Start convert JSON
-	ArrayList<Entity> answer = new ArrayList<>();
-	if (out != null && !out.toString().equals("")) {
-	    Gson gson = new Gson();
-	    Type type = new TypeToken<ArrayList<Entity>>() {
-	    }.getType();
-	    answer = gson.fromJson(out.toString(), type);
-	} else {
-	    answer = new ArrayList<Entity>();
+	@Override
+	public Node readFromFile(String fileName) {
+		// Get string from file
+		StringBuilder out = new StringBuilder();
+		try {
+			File file = new File(fileName);
+			FileReader reader = new FileReader(file);
+			Scanner scanner = new Scanner(reader);
+			while (scanner.hasNextLine()) {
+				out.append(scanner.nextLine());
+			}
+			reader.close();
+			scanner.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		// Start convert JSON
+		Node answer;
+		SessionManager.clearSession();
+		answer = SessionManager.getSession();
+		if (out != null && !out.toString().equals("")) {
+			Gson gson = new Gson();
+			Type type = new TypeToken<Node>() {
+			}.getType();
+			answer = gson.fromJson(out.toString(), type);
+		}
+		return answer;
 	}
-	return answer;
-    }
 
 }

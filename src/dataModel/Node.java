@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Node {
 	private Node parent;
-	private ArrayList<Node> children;
 	private String name;
 	private int picStatus; // 0 - unchecked, 1 - checked, 2 - declined
 
@@ -13,6 +12,7 @@ public class Node {
 	private String city; // Set only if isLeaf=true;
 	private int result; // Set only if isLeaf=true;
 	private String photoFileName;
+	private ArrayList<Node> children;
 
 	public Node() {
 		this.parent = null;
@@ -49,7 +49,6 @@ public class Node {
 		this.city = city;
 		this.result = result;
 		this.photoFileName = photo;
-
 	}
 
 	public Node createSubFolder(String name) {
@@ -254,6 +253,23 @@ public class Node {
 	@Override
 	public String toString() {
 		return this.name;
+	}
+
+	public String toPrint() {
+		StringBuilder stringifiedChildren = new StringBuilder();
+		ArrayList<Node> childrenList = this.children;
+		if (childrenList != null) {
+			for (Node child : childrenList) {
+				stringifiedChildren.append(child.toPrint() + "\n");
+			}
+		}
+
+		String answer = "[" + (name != null ? "name=" + name + ", " : "")
+				+ (parent != null ? "parent=" + parent + ", " : "") + ", isLeaf=" + isLeaf + ", picStatus=" + picStatus
+				+ (address != null ? "address=" + address + ", " : "") + (city != null ? "city=" + city + ", " : "")
+				+ "result=" + result + ", " + (photoFileName != null ? "photoFileName=" + photoFileName : "\n")
+				+ (children != null ? "children=" + stringifiedChildren : "") + "]";
+		return answer;
 	}
 
 }
