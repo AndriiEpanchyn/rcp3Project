@@ -53,6 +53,7 @@ public class SessionManager {
 	public static synchronized void clearSession() {
 		session = null;
 		session = SessionManager.getSession();
+
 		fileName = "";
 		isNewFile = true;
 	}

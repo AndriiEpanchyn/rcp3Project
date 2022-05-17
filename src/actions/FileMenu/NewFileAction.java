@@ -4,7 +4,6 @@ import java.net.URL;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
@@ -13,8 +12,6 @@ import org.osgi.framework.Bundle;
 
 import dataModel.SessionManager;
 import rcp3project.Activator;
-import rcp3project.EditorInput;
-import rcp3project.FormEditor;
 import rcp3project.NavigationView;
 
 public class NewFileAction extends Action {
@@ -33,8 +30,10 @@ public class NewFileAction extends Action {
 	@Override
 	public void run() {
 		NavigationView n = null;
-		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false); 
+//		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);
+		window.getActivePage().closeAllEditors(false);
 		SessionManager.clearSession();
+		SessionManager.setSession(SessionManager.getSession());
 		try {
 			n = (NavigationView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 					.showView(NavigationView.ID);

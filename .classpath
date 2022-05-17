@@ -7,6 +7,5 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Install/Java utils and libs/gson-2.8.9.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

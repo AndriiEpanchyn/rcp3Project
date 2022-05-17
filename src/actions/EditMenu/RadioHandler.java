@@ -32,27 +32,18 @@ public class RadioHandler extends AbstractHandler implements IElementUpdater {
 		if (parm.equals(fCurrentValue)) {
 			return null; // in theory, we're already in the correct state
 		}
-
-		// do whatever having "parm" active implies
-
 		// работаем с выделением
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 		IStructuredSelection selection = (IStructuredSelection) page.getSelection();
 		Node currentNode = (Node) selection.getFirstElement();
-
-		System.out.println("selected = " + currentNode + "; status = " + currentNode.getPicStatus());
-		// fCurrentValue = String.valueOf(currentNode.getPicStatus());
-		System.out.println("fCurrentValue = " + fCurrentValue);
-
-		System.out.println("parm = " + parm);
-
+		Node session = SessionManager.getSession();
 		currentNode.setPicStatus(Integer.valueOf(parm));
 		SessionManager.setCurrentRefrence(currentNode);
 
 		try {
 			NavigationView n = (NavigationView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 					.showView(NavigationView.ID);
-			// n.setExpandStatus(false);
+			n.setExpandStatus(true);
 			n.redrawTree();
 		} catch (PartInitException e) {
 		}

@@ -17,6 +17,7 @@ import actions.EditMenu.RenameFolderAction;
 import actions.EditMenu.SaveRecordAction;
 // import actions.EditMenu.SaveRecordAction;
 import actions.FileMenu.AboutWindowAction;
+import actions.FileMenu.FileReadAction;
 import actions.FileMenu.FileSaveAsAction;
 import actions.FileMenu.NewFileAction;
 
@@ -32,6 +33,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private CollapseTreeAction collapse;
 	private OpenEditorAction open;
 	private FileSaveAsAction fileSaveAsAction;
+	private FileReadAction fileReadAction;
 
 	public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
 		super(configurer);
@@ -73,6 +75,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
 		fileSaveAsAction = new FileSaveAsAction(window);
 		register(fileSaveAsAction);
+
+		fileReadAction = new FileReadAction(window);
+		register(fileReadAction);
 	}
 
 	@Override

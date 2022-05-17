@@ -61,8 +61,8 @@
                   style="push">
             </command>
             <command
-                  commandId="rcp3Project.command2"
-                  label="Open"
+                  commandId="rcp3Project.ReadFileAction"
+                  label="Open file"
                   style="push">
             </command>
             <command
@@ -363,6 +363,10 @@
       <command
             id="rcp3Project.SaveAsFileAction"
             name="Save as">
+      </command>
+      <command
+            id="rcp3Project.ReadFileAction"
+            name="Open file">
       </command>
       
    </extension>

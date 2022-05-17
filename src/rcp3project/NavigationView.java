@@ -109,11 +109,11 @@ public class NavigationView extends ViewPart {
 		viewer.getTree().deselectAll();
 		session = SessionManager.getSession();
 		viewer.setInput(session);
-//		if (expandStatus) {
-//			viewer.expandAll();
-//		} else {
-//			viewer.collapseAll();
-//		}
+		if (expandStatus) {
+			viewer.expandAll();
+		} else {
+			viewer.collapseAll();
+		}
 		viewer.refresh();
 	}
 
@@ -121,20 +121,12 @@ public class NavigationView extends ViewPart {
 		return currentNode;
 	}
 
-//	public void setExpandStatus(boolean status) {
-//		this.expandStatus = status;
-////		if (expandStatus) {
-////			viewer.expandAll();
-////			System.out.println("Expanded");
-////		} else {
-////			
-////			System.out.println("Collapsed");
-////		}
-//
-//	}
+	public void setExpandStatus(boolean status) {
+		this.expandStatus = status;
+	}
 
-//	public boolean getExpandStatus() {
-//		return this.expandStatus;
-//	}
+	public boolean getExpandStatus() {
+		return this.expandStatus;
+	}
 
 }

@@ -8,26 +8,23 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.lang.reflect.Type;
 import java.util.Scanner;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.GsonBuilder;
 
 import dataModel.Node;
-import dataModel.SessionManager;
+import dataModel.NodeAdapter;
 
 public class JsonSaver implements Savable {
 
 	@Override
 	public boolean saveToFile(Node unsavedRecords, String fileName) {
 		boolean answer = false;
-
-		System.out.println("saving: " + unsavedRecords);
-		Gson toGson = new Gson();
-		System.out.println("toGson generated");
-		String outputString = toGson.toJson(unsavedRecords.toPrint());
-
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(Node.class, new NodeAdapter());
+		Gson gson = gsonBuilder.create();
+		String outputString = gson.toJson(unsavedRecords, Node.class);
 		File myFile = new File(fileName);
 		try {
 			@SuppressWarnings("resource")
@@ -61,14 +58,12 @@ public class JsonSaver implements Savable {
 		}
 
 		// Start convert JSON
-		Node answer;
-		SessionManager.clearSession();
-		answer = SessionManager.getSession();
+		Node answer = new Node();
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(Node.class, new NodeAdapter());
+		Gson gson = gsonBuilder.create();
 		if (out != null && !out.toString().equals("")) {
-			Gson gson = new Gson();
-			Type type = new TypeToken<Node>() {
-			}.getType();
-			answer = gson.fromJson(out.toString(), type);
+			answer = gson.fromJson(out.toString(), Node.class);
 		}
 		return answer;
 	}
