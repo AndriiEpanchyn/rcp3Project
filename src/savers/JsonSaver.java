@@ -14,7 +14,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import dataModel.Node;
-import dataModel.NodeAdapter;
 
 public class JsonSaver implements Savable {
 

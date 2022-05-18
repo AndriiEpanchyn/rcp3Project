@@ -72,16 +72,16 @@
                   style="push">
             </command>
             <command
-                  commandId="org.eclipse.ui.file.exit"
-                  label="Exit"
-                  style="push"
-                  tooltip="Exit programm">
-            </command>
-            <command
                   commandId="rcp3Project.SaveAsFileAction"
                   icon="icons/saveRecord16x16.png"
                   label="Save as"
                   style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.file.exit"
+                  label="Exit"
+                  style="push"
+                  tooltip="Exit programm">
             </command>
          </menu>
          <menu

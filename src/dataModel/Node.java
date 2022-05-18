@@ -38,8 +38,8 @@ public class Node {
 		this.photoFileName = null;
 	}
 
-	Node(Node parent, ArrayList<Node> children, String name, boolean isLeaf, String address, String city, int result,
-			String photo) {
+	public Node(Node parent, ArrayList<Node> children, String name, boolean isLeaf, String address, String city,
+			int result, String photo) {
 		this.parent = parent;
 		this.children = children;
 		this.isLeaf = isLeaf;
@@ -164,8 +164,8 @@ public class Node {
 	}
 
 	public void setChildren(ArrayList<Node> children) {// Shouldn't set value if object is folder
-		if (this.isLeaf)
-			this.children = children;
+		// if (this.isLeaf)
+		this.children = children;
 	}
 
 	public void removeLeaf() { // Remove leaf only in case if leaf is really leaf

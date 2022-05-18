@@ -6,10 +6,13 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 
 import dataModel.SessionManager;
 import rcp3project.Activator;
+import rcp3project.NavigationView;
 import savers.FileReadManager;
 
 public class FileReadAction extends Action {
@@ -29,5 +32,12 @@ public class FileReadAction extends Action {
 	public void run() {
 		FileReadManager.execute(window);
 		window.getShell().setText("JFace application:  " + SessionManager.getFileName());
+		try {
+			NavigationView n = (NavigationView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+					.showView(NavigationView.ID);
+			n.redrawTree();
+		} catch (PartInitException e) {
+		}
+
 	}
 }
