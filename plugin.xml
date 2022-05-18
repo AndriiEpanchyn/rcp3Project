@@ -66,7 +66,7 @@
                   style="push">
             </command>
             <command
-                  commandId="rcp3Project.command3"
+                  commandId="rcp3Project.SaveFileAction"
                   icon="icons/eclipse16.png"
                   label="Save"
                   style="push">
@@ -367,6 +367,10 @@
       <command
             id="rcp3Project.ReadFileAction"
             name="Open file">
+      </command>
+      <command
+            id="rcp3Project.SaveFileAction"
+            name="Save file">
       </command>
       
    </extension>

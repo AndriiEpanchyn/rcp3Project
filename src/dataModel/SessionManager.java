@@ -9,6 +9,8 @@ public class SessionManager {
 
 	public static synchronized Node getSession() {
 		if (session == null) {
+			fileName = "";
+			isNewFile = true;
 			Node node = new Node();
 			Node root = node.createSubFolder("Folder");
 			session = node;
@@ -22,6 +24,8 @@ public class SessionManager {
 	}
 
 	private SessionManager() {
+		fileName = "";
+		isNewFile = true;
 		Node node = new Node();
 		Node root = node.createSubFolder("Folder");
 		session = node;
@@ -53,7 +57,6 @@ public class SessionManager {
 	public static synchronized void clearSession() {
 		session = null;
 		session = SessionManager.getSession();
-
 		fileName = "";
 		isNewFile = true;
 	}

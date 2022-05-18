@@ -20,9 +20,7 @@ import dataModel.SessionManager;
 import rcp3project.NavigationView;
 
 public class RadioHandler extends AbstractHandler implements IElementUpdater {
-
 	private static final String PARM_INFO = "org.eclipse.ui.commands.radioStateParameter";
-
 	private String fCurrentValue;
 	IWorkbenchWindow window;
 
@@ -48,24 +46,10 @@ public class RadioHandler extends AbstractHandler implements IElementUpdater {
 		} catch (PartInitException e) {
 		}
 
-		// update our radio button states ... get the service from
-		// a place that's most appropriate
+		// update our radio button states ... get the service from a place that's most
+		// appropriate
 		ICommandService service = HandlerUtil.getActiveWorkbenchWindowChecked(event).getService(ICommandService.class);
 		service.refreshElements(event.getCommand().getId(), null);
-
-//		if (HandlerUtil.matchesRadioState(event)) {
-//			return null; // we are already in the updated state - do nothing
-//		}
-//
-//		String currentState = event.getParameter(PARM_INFO);
-////	String currentState = event.getParameter(RadioState.PARAMETER_ID);
-//		// perform task for current state
-//		if (currentState.equals("0")) {	} 
-//		else if (currentState.equals("1")) {}
-//		// perform left alignment
-//		else if (currentState.equals("2"))
-//		// perform center alignment and so on ... and finally update the current state
-		// HandlerUtil.updateRadioState(event.getCommand(), parm);
 		return null;
 	}
 

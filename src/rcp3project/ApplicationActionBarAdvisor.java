@@ -18,6 +18,7 @@ import actions.EditMenu.SaveRecordAction;
 // import actions.EditMenu.SaveRecordAction;
 import actions.FileMenu.AboutWindowAction;
 import actions.FileMenu.FileReadAction;
+import actions.FileMenu.FileSaveAction;
 import actions.FileMenu.FileSaveAsAction;
 import actions.FileMenu.NewFileAction;
 
@@ -34,6 +35,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private OpenEditorAction open;
 	private FileSaveAsAction fileSaveAsAction;
 	private FileReadAction fileReadAction;
+	private FileSaveAction fileSaveAction;
 
 	public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
 		super(configurer);
@@ -78,6 +80,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
 		fileReadAction = new FileReadAction(window);
 		register(fileReadAction);
+
+		fileSaveAction = new FileSaveAction(window);
+		register(fileSaveAction);
 	}
 
 	@Override
