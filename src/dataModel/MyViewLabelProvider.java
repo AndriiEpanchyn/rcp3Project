@@ -56,7 +56,6 @@ public class MyViewLabelProvider extends LabelProvider {
 			} else {
 				imageKey = folderFileName; // checked folder
 			}
-			System.out.println("strange situation appeared in MyLabelProvider.getImage");
 		}
 		Image answer = convertPhotoForLabel(imageKey);
 
