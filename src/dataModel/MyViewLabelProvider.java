@@ -1,6 +1,7 @@
 package dataModel;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 
 import org.eclipse.jface.viewers.LabelProvider;
@@ -57,7 +58,9 @@ public class MyViewLabelProvider extends LabelProvider {
 			}
 			System.out.println("strange situation appeared in MyLabelProvider.getImage");
 		}
-		return convertPhotoForLabel(imageKey);
+		Image answer = convertPhotoForLabel(imageKey);
+
+		return answer;
 	}
 
 	private Image convertPhotoForLabel(String fileName) {
@@ -73,8 +76,18 @@ public class MyViewLabelProvider extends LabelProvider {
 		} else {
 			InputStream stream = Application.class.getClassLoader().getResourceAsStream(fileName);
 			photo = new Image(display, stream);
+
+			try {
+				stream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		Image answer = new Image(display, photo.getImageData().scaledTo(16, 16));
+		try {
+			photo.dispose();
+		} catch (Exception e) {
+		}
 		return answer;
 	}
 }

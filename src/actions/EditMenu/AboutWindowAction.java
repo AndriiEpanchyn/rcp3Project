@@ -1,4 +1,4 @@
-package actions.FileMenu;
+package actions.EditMenu;
 
 import java.net.URL;
 

@@ -25,9 +25,17 @@
       <view
             allowMultiple="false"
             class="rcp3project.NavigationView"
-            fastViewWidthRatio="0.15"
+            fastViewWidthRatio="1"
             id="rcp3project.NavigationView"
             name="Explorer"
+            restorable="true">
+      </view>
+      <view
+            class="rcp3project.EmptyView"
+            fastViewWidthRatio="0.75"
+            id="rcp3project.EmptyView"
+            inject="true"
+            name="Noname"
             restorable="true">
       </view>
    </extension>
@@ -36,9 +44,20 @@
       <perspectiveExtension
             targetID="rcp3project.Perspective">
          <view
+               closeable="false"
                id="rcp3project.NavigationView"
                minimized="false"
                ratio="0.25"
+               relationship="left"
+               relative="org.eclipse.ui.editorss"
+               standalone="false"
+               visible="true">
+         </view>
+         <view
+               closeable="false"
+               id="rcp3project.EmptyView"
+               minimized="false"
+               ratio="0.75"
                relationship="left"
                relative="org.eclipse.ui.editorss"
                standalone="false"
@@ -86,56 +105,38 @@
          </menu>
          <menu
                label="Edit">
-            <menu
-                  label="Group">
-               <command
-                     commandId="AddAction"
-                     icon="icons/addFolder16x16.png"
-                     label="Add Folder"
-                     style="push">
-               </command>
-               <command
-                     commandId="RenameFolderAction"
-                     icon="icons/renameFolderAction16x16.png"
-                     id="renameFolderAction"
-                     label="Edit group"
-                     style="push">
-               </command>
-               <command
-                     commandId="RemoveRecordAction"
-                     icon="icons/removeRecord16x16.png"
-                     label="Delete group"
-                     style="push">
-               </command>
-            </menu>
-            <menu
-                  label="Student">
-               <command
-                     commandId="AddAction"
-                     icon="icons/addRecord16x16.png"
-                     label="New Student"
-                     style="push">
-               </command>
-               <command
-                     commandId="SaveRecordAction"
-                     icon="icons/saveRecord16x16.png"
-                     label="Save student"
-                     style="push">
-               </command>
-               <command
-                     commandId="RemoveRecordAction"
-                     icon="icons/removeRecord16x16.png"
-                     id="Delete student"
-                     label="Delete student"
-                     style="push">
-               </command>
-               <command
-                     commandId="org.eclipse.ui.file.close"
-                     id="CloseEditor"
-                     label="Close current editor"
-                     style="push">
-               </command>
-            </menu>
+            <command
+                  commandId="AddAction"
+                  icon="icons/addRecord16x16.png"
+                  label="New element"
+                  style="push">
+            </command>
+            <command
+                  commandId="RemoveRecordAction"
+                  icon="icons/removeRecord16x16.png"
+                  id="Delete element"
+                  label="Delete element"
+                  style="push">
+            </command>
+            <command
+                  commandId="RenameFolderAction"
+                  icon="icons/renameFolderAction16x16.png"
+                  id="renameFolderAction"
+                  label="Edit group"
+                  style="push">
+            </command>
+            <command
+                  commandId="SaveRecordAction"
+                  icon="icons/saveRecord16x16.png"
+                  label="Save student"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.file.close"
+                  id="CloseEditor"
+                  label="Close current element"
+                  style="push">
+            </command>
          </menu>
          <menu
                commandId="AboutWindowAction"
@@ -385,6 +386,15 @@
       <handler
             commandId="rcp3Project.handler1">
       </handler>
+   </extension>
+   <extension
+         id="gadgetDrop"
+         name="GadgetResourceDrop"
+         point="org.eclipse.ui.dropActions">
+      <action
+            class="rcp3project.DropActionDelegate1"
+            id="rcp3Project.action1">
+      </action>
    </extension>
 
 </plugin>

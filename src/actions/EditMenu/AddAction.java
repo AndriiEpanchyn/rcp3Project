@@ -52,6 +52,7 @@ public class AddAction extends Action {
 			addFolder(page, currentNode);
 		} else if (result == 1) {// 1- record
 			addRecord(page, currentNode);
+			navigationView.setExpandStatus(true);
 		}
 		navigationView.redrawTree();
 	}

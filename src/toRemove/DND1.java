@@ -95,9 +95,9 @@ public class DND1 {
 				if (textTransfer.isSupportedType(event.currentDataType)) {
 					// NOTE: on unsupported platforms this will return null
 					Object o = textTransfer.nativeToJava(event.currentDataType);
-//					String t = (String) o;
-//					if (t != null)
-//						System.out.println(t);
+					String t = (String) o;
+					if (t != null)
+						System.out.println(t);
 				}
 			}
 

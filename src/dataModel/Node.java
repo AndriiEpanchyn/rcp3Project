@@ -272,4 +272,33 @@ public class Node {
 		return answer;
 	}
 
+	public void moveTo(Node target) {
+		if (target.isLeaf) {
+			return;
+		}
+		if (Node.contains(this, target)) {
+			return;
+		}
+		this.parent.getChildren().remove(this);
+		this.setParent(target);
+		target.children.add(this);
+	}
+
+	public static boolean contains(Node source, Node target) {
+		if (!source.hasChildren()) {
+			return false;
+		}
+		for (Node child : source.children) {
+			if (child == target) {
+				return true;
+			}
+			if (child.isLeaf() == false) {
+				if (Node.contains(child, target)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 }

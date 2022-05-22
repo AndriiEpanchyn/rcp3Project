@@ -20,10 +20,12 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
-import dataModel.MyContentProvider2;
+import dataModel.MyContentProvider;
 import dataModel.MyViewLabelProvider;
 import dataModel.Node;
 import dataModel.SessionManager;
+import dnd.DragSourceCreator;
+import dnd.TreeDropTargetCreator;
 
 public class NavigationView extends ViewPart {
 	public static final String ID = "rcp3project.NavigationView";
@@ -37,12 +39,12 @@ public class NavigationView extends ViewPart {
 	public void createPartControl(Composite parent) {
 		SessionManager.setSession(session);
 		viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
-		viewer.setContentProvider(new MyContentProvider2());
+		viewer.setContentProvider(new MyContentProvider());
 		viewer.setLabelProvider(new MyViewLabelProvider());
 		createColumn(viewer.getTree(), "Students");
 		viewer.setInput(session);
 		viewer.getTree().setHeaderBackground(new Color(120, 120, 120));
-		viewer.getTree().setHeaderForeground(new Color(220, 220, 220));
+		viewer.getTree().setHeaderForeground(new Color(210, 210, 210));
 		viewer.addDoubleClickListener(new IDoubleClickListener() {
 			@Override
 			public void doubleClick(DoubleClickEvent event) {
@@ -50,6 +52,9 @@ public class NavigationView extends ViewPart {
 				currentNode = (Node) selection.getFirstElement();
 				SessionManager.setCurrentRefrence(currentNode);
 				if (currentNode.isLeaf()) {
+					// Hide emptyView
+					IWorkbenchPage pageV = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+					pageV.hideView(pageV.findView(EmptyView.ID));
 					try {
 						boolean isEditorAlreadyOpened = false;
 						IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
@@ -71,7 +76,6 @@ public class NavigationView extends ViewPart {
 				}
 			}
 		});
-
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
@@ -80,22 +84,20 @@ public class NavigationView extends ViewPart {
 				SessionManager.setCurrentRefrence(currentNode);
 			}
 		});
+		DragSourceCreator.create(viewer.getTree());
+		TreeDropTargetCreator.create(viewer.getTree());
 
 		// MenuManager help to create context menu
 		MenuManager menuManager = new MenuManager();
 		Menu menu = menuManager.createContextMenu(viewer.getTree());
-		// set the menu on the SWT widget
 		viewer.getTree().setMenu(menu);
-		// register the menu with the framework
 		getSite().registerContextMenu(menuManager, viewer);
-
-		// make the viewer selection available
 		getSite().setSelectionProvider(viewer);
 	}
 
 	public void createColumn(Tree tr, String text) {
 		TreeColumn column = new TreeColumn(tr, SWT.NONE);
-		column.setWidth(300);
+		column.setWidth(200);
 		column.setText(text);
 		tr.setHeaderVisible(true);
 	}

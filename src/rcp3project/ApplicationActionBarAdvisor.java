@@ -8,6 +8,7 @@ import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 
+import actions.EditMenu.AboutWindowAction;
 import actions.EditMenu.AddAction;
 import actions.EditMenu.CollapseTreeAction;
 import actions.EditMenu.ExpandTreeAction;
@@ -15,8 +16,6 @@ import actions.EditMenu.OpenEditorAction;
 import actions.EditMenu.RemoveRecordAction;
 import actions.EditMenu.RenameFolderAction;
 import actions.EditMenu.SaveRecordAction;
-// import actions.EditMenu.SaveRecordAction;
-import actions.FileMenu.AboutWindowAction;
 import actions.FileMenu.FileReadAction;
 import actions.FileMenu.FileSaveAction;
 import actions.FileMenu.FileSaveAsAction;

@@ -1,6 +1,8 @@
 package rcp3project;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.SWT;
@@ -25,6 +27,7 @@ import org.eclipse.ui.part.EditorPart;
 
 import dataModel.Node;
 import dataModel.SessionManager;
+import dnd.ViewerDropTargetCreator;
 
 public class FormEditor extends EditorPart {
 	public static String ID = "rcp3project.FormEditor";
@@ -54,6 +57,7 @@ public class FormEditor extends EditorPart {
 
 		mainComposite = new Composite(parent, SWT.BORDER);
 		mainComposite.setLayout(mainCompositeLayout);
+		ViewerDropTargetCreator.create(mainComposite);
 
 		labelName = createLabel(mainComposite, "Name");
 		textName = createText(mainComposite, name);
@@ -71,13 +75,21 @@ public class FormEditor extends EditorPart {
 
 		photoLabel = new Label(mainComposite, SWT.BORDER);
 		photoLabel.setLayoutData(createPhotoGrid());
-		photoLabel.setImage(convertPhotoForLabel(photoFileName));
+		Image img = convertPhotoForLabel(photoFileName);
+		photoLabel.setImage(img);
+		// img.dispose();
 		photoLabel.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
 				String openedFile = chooseFile();
-				photoFileName = openedFile;
-				labelPath.setText(photoFileName);
+				File checkFile;
+				if (!(openedFile == null) && !openedFile.equals("")) {
+					checkFile = new File(openedFile);
+					if (checkFile.exists()) {
+						photoFileName = openedFile;
+					}
+				}
+
 				photoLabel.setImage(convertPhotoForLabel(photoFileName));
 				setDirty(true);
 				setPartName("*" + name);
@@ -155,8 +167,6 @@ public class FormEditor extends EditorPart {
 			}
 		});
 
-		labelPath = createText(mainComposite, photoFileName);
-
 	}
 
 	public void setFields() {
@@ -174,9 +184,7 @@ public class FormEditor extends EditorPart {
 		textAddress.redraw();
 		textCity.redraw();
 		textResult.redraw();
-		// insertPhotoForLabel(photoLabel, photoFileName);
 		photoLabel.redraw();
-		labelPath.redraw();
 		NavigationView n;
 		try {
 			n = (NavigationView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
@@ -246,10 +254,16 @@ public class FormEditor extends EditorPart {
 		if (new File(fileName).isAbsolute()) {
 			photo = new Image(photoLabel.getShell().getDisplay(), fileName);
 		} else {
-			photo = new Image(photoLabel.getShell().getDisplay(),
-					Application.class.getClassLoader().getResourceAsStream(fileName));
+			InputStream stream = Application.class.getClassLoader().getResourceAsStream(fileName);
+			try {
+				photo = new Image(photoLabel.getShell().getDisplay(), stream);
+				stream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		final Image answer = new Image(photoLabel.getShell().getDisplay(), photo.getImageData().scaledTo(256, 256));
+		// photo.dispose();
 		return answer;
 	}
 

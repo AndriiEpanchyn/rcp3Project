@@ -3,7 +3,7 @@ package dataModel;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 
-public class MyContentProvider2 implements IStructuredContentProvider, ITreeContentProvider {
+public class MyContentProvider implements IStructuredContentProvider, ITreeContentProvider {
 
 	@Override
 	public Object[] getElements(Object inputElement) {

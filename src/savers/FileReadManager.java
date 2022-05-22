@@ -52,8 +52,8 @@ public class FileReadManager {
 		switch (extenstion) {
 		case "JSON":
 			return new JsonSaver();
-		case "TXT":
-			return new TxtSaver();
+//		case "TXT":
+//			return new TxtSaver();
 		default:
 			System.out.println("Incorrect file type");
 			return null;
