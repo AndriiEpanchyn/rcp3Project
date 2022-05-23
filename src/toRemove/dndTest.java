@@ -119,16 +119,17 @@ public class dndTest {
 						if (pt.y < bounds.y + bounds.height / 3) {
 							TreeItem newItem = new TreeItem(parent, SWT.NONE, index);
 							newItem.setText(text);
-							System.out.println("2nd part if leaf dragged on 1/3 part put before target");
+							// System.out.println("2nd part if leaf dragged on 1/3 part put before target");
 						} else if (pt.y > bounds.y + 2 * bounds.height / 3) {
 							TreeItem newItem = new TreeItem(parent, SWT.NONE, index + 1);
 							newItem.setText(text);
-							System.out.println("3d part if leaf dragged on 3/3 part put after target");
+							// System.out.println("3d part if leaf dragged on 3/3 part put after target");
 						} else {
 							event.detail = DND.DROP_MOVE;
 							TreeItem newItem = new TreeItem(item, SWT.NONE);
 							newItem.setText(text);
-							System.out.println("4th part if dragged on 2/3 DONT create structrure under leaf");
+							// System.out.println("4th part if dragged on 2/3 DONT create structrure under
+							// leaf");
 						}
 
 					} else {

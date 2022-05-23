@@ -272,16 +272,45 @@ public class Node {
 		return answer;
 	}
 
-	public void moveTo(Node target) {
-		if (target.isLeaf) {
+	public void moveTo(Node target, boolean insertAfter) {
+		if (target == null) {
+			moveTo(SessionManager.getSession(), insertAfter);
 			return;
 		}
 		if (Node.contains(this, target)) {
 			return;
 		}
-		this.parent.getChildren().remove(this);
-		this.setParent(target);
-		target.children.add(this);
+		int deltaIndex = insertAfter ? 1 : 0;
+		if (target.isLeaf) {
+			int targetIndex = target.parent.children.indexOf(target) + deltaIndex;
+			// move in the same folder
+			if (this.parent == target.parent) {
+				this.parent.children.remove(this);
+				this.setParent(target.parent);
+				if (targetIndex < target.parent.children.size() && targetIndex >= 0) {
+					target.parent.children.add(targetIndex, this);
+				} else {
+					target.parent.children.add(this);
+				}
+			} else {
+				// move to another folder
+				this.parent.getChildren().remove(this);
+				this.setParent(target.parent);
+				if (targetIndex < target.parent.children.size() - 1 && targetIndex >= 0) {
+					target.parent.children.add(targetIndex, this);
+				} else {
+					target.parent.children.add(this);
+				}
+			}
+
+		} else {
+
+			// if target is folder
+			this.parent.getChildren().remove(this);
+			this.setParent(target);
+			target.children.add(0, this);
+		}
+
 	}
 
 	public static boolean contains(Node source, Node target) {

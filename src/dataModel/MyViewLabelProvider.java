@@ -3,6 +3,8 @@ package dataModel;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
@@ -58,9 +60,25 @@ public class MyViewLabelProvider extends LabelProvider {
 			}
 			System.out.print("strange situation appeared in MyLabelProvider.getImage");
 		}
-		Image answer = convertPhotoForLabel(imageKey);
 
+		Image answer = getImageByKey(imageKey);
 		return answer;
+	}
+
+	private Map<String, Image> imageCache = new HashMap<>();
+
+	private Image getImageByKey(String imageKey) {
+		if (!imageCache.containsKey(imageKey)) {
+			imageCache.put(imageKey, convertPhotoForLabel(imageKey));
+		}
+		return imageCache.get(imageKey);
+	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
+		imageCache.values().forEach(image -> image.dispose());
+		imageCache.clear();
 	}
 
 	private Image convertPhotoForLabel(String fileName) {
@@ -84,10 +102,7 @@ public class MyViewLabelProvider extends LabelProvider {
 			}
 		}
 		Image answer = new Image(display, photo.getImageData().scaledTo(16, 16));
-		try {
-			photo.dispose();
-		} catch (Exception e) {
-		}
+		photo.dispose();
 		return answer;
 	}
 }

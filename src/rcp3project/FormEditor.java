@@ -75,9 +75,8 @@ public class FormEditor extends EditorPart {
 
 		photoLabel = new Label(mainComposite, SWT.BORDER);
 		photoLabel.setLayoutData(createPhotoGrid());
-		Image img = convertPhotoForLabel(photoFileName);
-		photoLabel.setImage(img);
-		// img.dispose();
+		photo = convertPhotoForLabel(photoFileName);
+		photoLabel.setImage(photo);
 		photoLabel.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
@@ -89,8 +88,8 @@ public class FormEditor extends EditorPart {
 						photoFileName = openedFile;
 					}
 				}
-
-				photoLabel.setImage(convertPhotoForLabel(photoFileName));
+				photo = convertPhotoForLabel(photoFileName);
+				photoLabel.setImage(photo);
 				setDirty(true);
 				setPartName("*" + name);
 			}
@@ -169,14 +168,14 @@ public class FormEditor extends EditorPart {
 
 	}
 
-	public void setFields() {
-		textName.setText(name);
-		textGroup.setText(group);
-		textAddress.setText(address);
-		textCity.setText(city);
-		textResult.setText(String.valueOf(result));
-		// photo = img;
-	}
+//	public void setFields() {
+//		textName.setText(name);
+//		textGroup.setText(group);
+//		textAddress.setText(address);
+//		textCity.setText(city);
+//		textResult.setText(String.valueOf(result));
+//		photo = pho;
+////	}
 
 	public void refreshAll() {
 		textName.redraw();
@@ -193,7 +192,6 @@ public class FormEditor extends EditorPart {
 		} catch (PartInitException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -263,7 +261,7 @@ public class FormEditor extends EditorPart {
 			}
 		}
 		final Image answer = new Image(photoLabel.getShell().getDisplay(), photo.getImageData().scaledTo(256, 256));
-		// photo.dispose();
+		photo.dispose();
 		return answer;
 	}
 
@@ -283,6 +281,7 @@ public class FormEditor extends EditorPart {
 			SessionManager.setCurrentRefrence(currentReference);
 			setDirty(false);
 			setPartName(currentReference.getName());
+
 			refreshAll();
 		}
 	}
@@ -340,4 +339,9 @@ public class FormEditor extends EditorPart {
 		return fileName;
 	}
 
+	@Override
+	public void dispose() {
+		super.dispose();
+		photo.dispose();
+	}
 }

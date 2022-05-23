@@ -49,7 +49,7 @@ public class TreeDropTargetCreator {
 
 			@Override
 			public void drop(DropTargetEvent event) {
-				// Drop not active
+				// Drop not active (Source = null, target = any value)
 				if (event.data == null) {
 					event.detail = DND.DROP_NONE;
 					return;
@@ -57,8 +57,22 @@ public class TreeDropTargetCreator {
 
 				Node currentNode = SessionManager.getCurrentRefrence();
 				TreeItem item = (TreeItem) event.item;
-				Node target = (Node) item.getData();
-				currentNode.moveTo(target);
+				Node target;
+				if (item == null) {
+					// Target = null, source leaf or folder
+					target = SessionManager.getSession();
+					currentNode.moveTo(target, false);
+				} else {
+					target = (Node) item.getData();
+
+					Point pt = display.map(null, tree, event.x, event.y);
+					Rectangle bounds = item.getBounds();
+					boolean insertAfter = false;
+					if (pt.y > bounds.y + bounds.height / 3) {
+						insertAfter = true;
+					}
+					currentNode.moveTo(target, insertAfter);
+				}
 				NavigationView n;
 				try {
 					n = (NavigationView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
