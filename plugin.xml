@@ -290,13 +290,38 @@
                visible="true">
          </separator>
       </menuContribution>
+      <menuContribution
+            allPopups="true"
+            locationURI="popup:rcp3project.FormEditor">
+         <command
+               commandId="SaveRecordAction"
+               id="SaveRecordAction"
+               label="Save record"
+               style="push">
+         </command>
+         <menu
+               label="Collapse / expand tree">
+            <command
+                  commandId="ExpandTreeAction"
+                  id="ExpandTreeAction"
+                  label="Expand"
+                  style="radio">
+            </command>
+            <command
+                  commandId="CollapseTreeAction"
+                  id="CollapseTreeAction"
+                  label="Collapse"
+                  style="radio">
+            </command>
+         </menu>
+      </menuContribution>
    </extension>
    
    <extension
          point="org.eclipse.ui.editors">
       <editor
             class="rcp3project.FormEditor"
-            default="false"
+            default="true"
             id="rcp3project.FormEditor"
             name="name">
       </editor>
@@ -357,7 +382,7 @@
                values="MyStateParams">
          </commandParameter>
          <state
-               class="org.eclipse.ui.handlers.RadioState"
+               class="org.eclipse.ui.handlers.RadioState: true"
                id="rcp3Project.state1">
          </state>
        </command>
@@ -383,18 +408,6 @@
             class="actions.EditMenu.RadioHandler"
             commandId="radioStateParameter.radio">
       </handler>
-      <handler
-            commandId="rcp3Project.handler1">
-      </handler>
-   </extension>
-   <extension
-         id="gadgetDrop"
-         name="GadgetResourceDrop"
-         point="org.eclipse.ui.dropActions">
-      <action
-            class="rcp3project.DropActionDelegate1"
-            id="rcp3Project.action1">
-      </action>
    </extension>
 
 </plugin>

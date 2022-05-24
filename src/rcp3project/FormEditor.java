@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -18,9 +20,11 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.EditorPart;
@@ -166,16 +170,16 @@ public class FormEditor extends EditorPart {
 			}
 		});
 
-	}
+		// MenuManager help to create context menu
+		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		MenuManager menuManager = new MenuManager();
+		Menu menu = menuManager.createContextMenu(this.getEditorSite().getShell());
+		mainComposite.setMenu(menu);
+		ISelectionProvider ISelectionProvider = null;
+		getSite().registerContextMenu(menuManager, ISelectionProvider);
+		getSite().setSelectionProvider(ISelectionProvider);
 
-//	public void setFields() {
-//		textName.setText(name);
-//		textGroup.setText(group);
-//		textAddress.setText(address);
-//		textCity.setText(city);
-//		textResult.setText(String.valueOf(result));
-//		photo = pho;
-////	}
+	}
 
 	public void refreshAll() {
 		textName.redraw();
@@ -339,9 +343,14 @@ public class FormEditor extends EditorPart {
 		return fileName;
 	}
 
-	@Override
-	public void dispose() {
-		super.dispose();
-		photo.dispose();
-	}
+//	@Override
+//	public void dispose() {
+//		MessageBox messageBox = new MessageBox(mainComposite.getShell(), SWT.OK | SWT.CANCEL);
+//		messageBox.setText("Warning");
+//		messageBox.setMessage("Save the changes before exiting?");
+//		int buttonID = messageBox.open();
+//
+////		super.dispose();
+////		photo.dispose();
+//	}
 }

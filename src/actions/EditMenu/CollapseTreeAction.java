@@ -37,7 +37,5 @@ public class CollapseTreeAction extends Action {
 		NavigationView navigationView = (NavigationView) (page.getViews()[0]);
 		navigationView.setExpandStatus(false);
 		navigationView.redrawTree();
-
-		System.out.println("Collapse");
 	}
 }
