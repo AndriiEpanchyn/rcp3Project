@@ -21,14 +21,8 @@ public class DragSourceCreator {
 			@Override
 			public void dragStart(DragSourceEvent event) {
 				TreeItem[] selection = tree.getSelection();
-				// If selection is not empty and nas no children
-//				if (selection.length > 0 && selection[0].getItemCount() == 0) {
 				event.doit = true;
 				dragSourceItem[0] = selection[0];
-//
-//				} else {
-//					event.doit = false;
-//				}
 			}
 
 			@Override

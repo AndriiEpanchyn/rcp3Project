@@ -141,11 +141,9 @@ public class Node {
 
 	private boolean isAdditionAdmissible(Node parent) {
 		if (parent == null) {
-			System.out.println("Class Node - trying to create child undeer the root folder");
 			return false;
 		}
 		if (parent.isLeaf) {
-			System.out.println("Class Node - trying to create child undeer the leaf");
 			return false;
 		}
 		return true;
@@ -164,7 +162,6 @@ public class Node {
 	}
 
 	public void setChildren(ArrayList<Node> children) {// Shouldn't set value if object is folder
-		// if (this.isLeaf)
 		this.children = children;
 	}
 
@@ -198,7 +195,7 @@ public class Node {
 		return isLeaf;
 	}
 
-	public void setLeaf(boolean isLeaf) { // TODO Should erase entire data if leaf becomes folder???
+	public void setLeaf(boolean isLeaf) {
 		this.isLeaf = isLeaf;
 	}
 

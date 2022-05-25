@@ -15,6 +15,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
 	public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
 		super(configurer);
+		super.postWindowClose();
 	}
 
 	@Override
@@ -32,13 +33,21 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 		configurer.setShowPerspectiveBar(true);
 		configurer.setTitle("Alien RCP app"); //$NON-NLS-1$
 		ViewerDropTargetCreator.create(configurer.getWindow().getShell());
+
 	}
 
 	@Override
 	public void postWindowCreate() {
 		Shell shell = getWindowConfigurer().getWindow().getShell();
 		shell.setLocation(1000, 150);
-		super.postWindowCreate();
 		IEditorInput input = new EditorInput(SessionManager.getCurrentRefrence());
+
 	}
+
+	public boolean preWindowClose() {
+
+		return true;
+
+	}
+
 }

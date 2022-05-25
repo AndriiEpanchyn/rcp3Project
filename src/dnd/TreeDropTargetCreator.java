@@ -11,10 +11,13 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 
 import dataModel.Node;
 import dataModel.SessionManager;
+import rcp3project.FormEditor;
 import rcp3project.NavigationView;
 
 public class TreeDropTargetCreator {
@@ -73,12 +76,23 @@ public class TreeDropTargetCreator {
 					}
 					currentNode.moveTo(target, insertAfter);
 				}
+
 				NavigationView n;
 				try {
 					n = (NavigationView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 							.findView(NavigationView.ID);
 					n.setExpandStatus(true);
 					n.redrawTree();
+
+					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+					IEditorReference[] eRefs = page.getEditorReferences();
+					for (IEditorReference ref : eRefs) {
+						FormEditor editor1 = (FormEditor) ref.getEditor(false);
+						if (editor1.getEditorsNode().hashCode() == currentNode.hashCode()) {
+							editor1.changeGroup();
+						}
+					}
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -87,4 +101,5 @@ public class TreeDropTargetCreator {
 		return target;
 	}
 
-}// end of class
+}
+// end of class

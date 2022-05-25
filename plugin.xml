@@ -321,7 +321,6 @@
          point="org.eclipse.ui.editors">
       <editor
             class="rcp3project.FormEditor"
-            default="true"
             id="rcp3project.FormEditor"
             name="name">
       </editor>

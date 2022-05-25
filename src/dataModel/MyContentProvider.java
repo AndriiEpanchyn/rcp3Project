@@ -7,20 +7,17 @@ public class MyContentProvider implements IStructuredContentProvider, ITreeConte
 
 	@Override
 	public Object[] getElements(Object inputElement) {
-		
-		//System.out.println(((Node) inputElement).getChildren().toArray());
-			return  ((Node) inputElement).getChildren().toArray();
-		//return ArrayContentProvider.getInstance().getElements(inputElement);
+		return ((Node) inputElement).getChildren().toArray();
 	}
 
 	@Override
 	public Object[] getChildren(Object parentElement) {
-		return getElements( parentElement);
+		return getElements(parentElement);
 	}
 
 	@Override
 	public Object getParent(Object element) {
-		if(element==null) {
+		if (element == null) {
 			return null;
 		}
 		return ((Node) element).getParent();
@@ -28,7 +25,7 @@ public class MyContentProvider implements IStructuredContentProvider, ITreeConte
 
 	@Override
 	public boolean hasChildren(Object element) {
-			return ((Node) element).hasChildren();
+		return ((Node) element).hasChildren();
 	}
 
 }

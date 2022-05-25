@@ -21,9 +21,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.ISaveablePart2;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -33,9 +36,9 @@ import dataModel.Node;
 import dataModel.SessionManager;
 import dnd.ViewerDropTargetCreator;
 
-public class FormEditor extends EditorPart {
+public class FormEditor extends EditorPart implements ISaveablePart2 {
 	public static String ID = "rcp3project.FormEditor";
-	boolean isDirty = false;
+	private boolean dirty;
 
 	Composite mainComposite;
 	Node currentReference = SessionManager.getCurrentRefrence();
@@ -51,7 +54,6 @@ public class FormEditor extends EditorPart {
 
 	Image photo;
 	String emptyFileName = "src/photos/_noPhoto256x256.png";
-	Text labelPath;
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -71,7 +73,7 @@ public class FormEditor extends EditorPart {
 			public void modifyText(ModifyEvent e) {
 				if (!textName.getText().equals(name)) {
 					setDirty(true);
-					setPartName("*" + name);
+					// setPartName("*" + name);
 				}
 			}
 		});
@@ -95,19 +97,15 @@ public class FormEditor extends EditorPart {
 				photo = convertPhotoForLabel(photoFileName);
 				photoLabel.setImage(photo);
 				setDirty(true);
-				setPartName("*" + name);
+				// setPartName("*" + name);
 			}
 
 			@Override
 			public void mouseDown(MouseEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void mouseUp(MouseEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 		});
 
@@ -118,7 +116,7 @@ public class FormEditor extends EditorPart {
 			public void modifyText(ModifyEvent e) {
 				if (!textGroup.getText().equals(group)) {
 					setDirty(true);
-					setPartName("*" + name);
+					// setPartName("*" + name);
 				}
 			}
 		});
@@ -131,7 +129,7 @@ public class FormEditor extends EditorPart {
 			public void modifyText(ModifyEvent e) {
 				if (!textAddress.getText().equals(address)) {
 					setDirty(true);
-					setPartName("*" + name);
+					// setPartName("*" + name);
 				}
 			}
 		});
@@ -144,7 +142,7 @@ public class FormEditor extends EditorPart {
 			public void modifyText(ModifyEvent e) {
 				if (!textCity.getText().equals(city)) {
 					setDirty(true);
-					setPartName("*" + name);
+					// setPartName("*" + name);
 				}
 			}
 		});
@@ -165,7 +163,7 @@ public class FormEditor extends EditorPart {
 			public void modifyText(ModifyEvent e) {
 				if (!textResult.getText().equals(result)) {
 					setDirty(true);
-					setPartName("*" + name);
+					// setPartName("*" + name);
 				}
 			}
 		});
@@ -178,6 +176,9 @@ public class FormEditor extends EditorPart {
 		ISelectionProvider ISelectionProvider = null;
 		getSite().registerContextMenu(menuManager, ISelectionProvider);
 		getSite().setSelectionProvider(ISelectionProvider);
+
+		this.setDirty(false);
+		this.firePropertyChange(999999);
 
 	}
 
@@ -283,11 +284,11 @@ public class FormEditor extends EditorPart {
 			currentReference.setResult(Integer.parseInt(textResult.getText()));
 			currentReference.setPhoto(photoFileName);
 			SessionManager.setCurrentRefrence(currentReference);
-			setDirty(false);
 			setPartName(currentReference.getName());
-
-			refreshAll();
 		}
+		this.firePropertyChange(999999);
+		setDirty(false);
+		refreshAll();
 	}
 
 	@Override
@@ -305,16 +306,14 @@ public class FormEditor extends EditorPart {
 
 	@Override
 	public boolean isDirty() {
-		return isDirty;
+		return this.dirty;
 	}
 
 	public void setDirty(boolean dirty) {
-		this.isDirty = dirty;
-	}
-
-	@Override
-	public boolean isSaveAsAllowed() {
-		return false;
+		if (this.dirty != dirty) {
+			this.dirty = dirty;
+			this.firePropertyChange(IEditorPart.PROP_DIRTY);
+		}
 	}
 
 	private static void ensureTextContainsOnlyTwoWordsWithSpaceAsDelimeter(VerifyEvent e) {
@@ -332,7 +331,6 @@ public class FormEditor extends EditorPart {
 		dlg.setFilterNames(FILTER_NAMES);
 		dlg.setFilterExtensions(FILTER_EXTS);
 		fileName = dlg.open();
-		System.out.println("");
 		dlg.getFileName();
 		if (fileName != null && !fileName.equals("")) {
 			File inputFile = new File(fileName);
@@ -343,14 +341,43 @@ public class FormEditor extends EditorPart {
 		return fileName;
 	}
 
-//	@Override
-//	public void dispose() {
-//		MessageBox messageBox = new MessageBox(mainComposite.getShell(), SWT.OK | SWT.CANCEL);
-//		messageBox.setText("Warning");
-//		messageBox.setMessage("Save the changes before exiting?");
-//		int buttonID = messageBox.open();
-//
-////		super.dispose();
-////		photo.dispose();
-//	}
+	@Override
+	public int promptToSaveOnClose() {
+		int answer = -1;
+		if (this.isDirty()) {
+			MessageBox messageBox = new MessageBox(this.getEditorSite().getShell(),
+					SWT.ICON_WARNING | SWT.YES | SWT.NO | SWT.CANCEL);
+			messageBox.setText("Warning");
+			messageBox.setMessage("Save the changes before exiting?");
+			int buttonID = messageBox.open();
+			switch (buttonID) {
+			case SWT.YES: {
+				answer = ISaveablePart2.YES;
+				break;
+			}
+			case SWT.NO: {
+				answer = ISaveablePart2.NO;
+				break;
+			}
+			case SWT.CANCEL: {
+				answer = ISaveablePart2.CANCEL;
+				break;
+			}
+			}
+		}
+		return answer;
+	}
+
+	@Override
+	public boolean isSaveAsAllowed() {
+		return false;
+	}
+
+	public void changeGroup() {
+		currentReference = SessionManager.getCurrentRefrence();
+		group = currentReference.getParent().getName();
+		textGroup.setText(group);
+		textGroup.redraw();
+	}
+
 }
