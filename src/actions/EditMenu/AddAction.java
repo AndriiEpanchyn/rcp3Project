@@ -10,12 +10,14 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 
 import dataModel.Node;
 import dataModel.SessionManager;
 import rcp3project.Activator;
 import rcp3project.EditorInput;
+import rcp3project.EmptyView;
 import rcp3project.FormEditor;
 import rcp3project.GetFolderNameTitleAreaDialog;
 import rcp3project.NavigationView;
@@ -72,6 +74,9 @@ public class AddAction extends Action {
 				newNode = currentNode.createLeaf(newObjectName);
 			}
 			SessionManager.setCurrentRefrence(newNode);
+			// Hide emptyView
+			IWorkbenchPage pageV = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+			pageV.hideView(pageV.findView(EmptyView.ID));
 			try {
 				IEditorPart newEditorWindow = page.openEditor(new EditorInput(newNode), FormEditor.ID);
 				page.activate(newEditorWindow);
