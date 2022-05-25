@@ -73,7 +73,6 @@ public class FormEditor extends EditorPart implements ISaveablePart2 {
 			public void modifyText(ModifyEvent e) {
 				if (!textName.getText().equals(name)) {
 					setDirty(true);
-					// setPartName("*" + name);
 				}
 			}
 		});
@@ -97,7 +96,6 @@ public class FormEditor extends EditorPart implements ISaveablePart2 {
 				photo = convertPhotoForLabel(photoFileName);
 				photoLabel.setImage(photo);
 				setDirty(true);
-				// setPartName("*" + name);
 			}
 
 			@Override
@@ -319,7 +317,7 @@ public class FormEditor extends EditorPart implements ISaveablePart2 {
 	private static void ensureTextContainsOnlyTwoWordsWithSpaceAsDelimeter(VerifyEvent e) {
 		String currentChar = e.text;
 		String text = ((Text) e.widget).getText() + currentChar;
-		e.doit = (text.matches("[a-zA-Zà-ÿÀ-ß³²¿¯ºª']+[ ]{0,1}[a-zA-Zà-ÿÀ-ß³²¿¯ºª' ]*") && text.length() > 0);
+		e.doit = (text.matches("[a-zA-Zà-ÿÀ-ß³²¿¯ºª']+[ ]{0,1}[a-zA-Zà-ÿÀ-ß³²¿¯ºª']*") && text.length() > 0);
 	}
 
 	private String chooseFile() {

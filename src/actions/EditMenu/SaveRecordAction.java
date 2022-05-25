@@ -31,7 +31,7 @@ public class SaveRecordAction extends Action {
 		FormEditor editor = (FormEditor) page.getActiveEditor();
 
 		if (editor != null && editor.isDirty()) {
-			page.saveEditor(editor, true);
+			page.saveEditor(editor, false);
 			editor.refreshAll();
 		}
 
