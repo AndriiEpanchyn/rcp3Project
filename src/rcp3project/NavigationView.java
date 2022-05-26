@@ -30,8 +30,8 @@ import dnd.TreeDropTargetCreator;
 public class NavigationView extends ViewPart {
 	public static final String ID = "rcp3project.NavigationView";
 	private TreeViewer viewer;
-//	Node session = SessionManager.getSession();
-	Node session = Node.makeDummyTree();
+	Node session = SessionManager.getSession();
+//	Node session = Node.makeDummyTree();
 	Node currentNode = SessionManager.getCurrentRefrence();
 	boolean expandStatus = false;
 

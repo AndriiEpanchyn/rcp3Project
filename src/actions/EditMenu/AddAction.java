@@ -42,8 +42,9 @@ public class AddAction extends Action {
 		NavigationView navigationView = (NavigationView) (page.getViews()[0]);
 		Node currentNode = navigationView.getCurrentRecord();
 
-		if (currentNode == null) {
-			currentNode = SessionManager.getCurrentRefrence();
+		if (currentNode == null || currentNode == SessionManager.getSession()) {
+			currentNode = SessionManager.getSession().getChildren().get(0);
+
 		}
 
 		MessageDialog dialog = new MessageDialog(window.getShell(), "Create new object.", null,
@@ -65,6 +66,7 @@ public class AddAction extends Action {
 		dialog.create();
 		if (dialog.open() == 0 && !dialog.getNewName().equals("")) {
 			newObjectName = dialog.getNewName();
+
 			if (currentNode.isLeaf()) {
 				// Add record next to current leaf
 				Node parent = currentNode.getParent();

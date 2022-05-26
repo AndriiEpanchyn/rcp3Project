@@ -112,10 +112,11 @@ public class FormEditor extends EditorPart implements ISaveablePart2 {
 		textGroup.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
+
 				if (!textGroup.getText().equals(group)) {
 					setDirty(true);
-					// setPartName("*" + name);
 				}
+
 			}
 		});
 		textGroup.setEnabled(false);
@@ -125,10 +126,12 @@ public class FormEditor extends EditorPart implements ISaveablePart2 {
 		textAddress.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
+
 				if (!textAddress.getText().equals(address)) {
 					setDirty(true);
-					// setPartName("*" + name);
+
 				}
+
 			}
 		});
 
@@ -138,10 +141,11 @@ public class FormEditor extends EditorPart implements ISaveablePart2 {
 		textCity.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
+
 				if (!textCity.getText().equals(city)) {
 					setDirty(true);
-					// setPartName("*" + name);
 				}
+
 			}
 		});
 
@@ -159,9 +163,9 @@ public class FormEditor extends EditorPart implements ISaveablePart2 {
 		textResult.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
+
 				if (!textResult.getText().equals(result)) {
 					setDirty(true);
-					// setPartName("*" + name);
 				}
 			}
 		});
@@ -378,4 +382,9 @@ public class FormEditor extends EditorPart implements ISaveablePart2 {
 		textGroup.redraw();
 	}
 
+	public boolean isEnteredCorrectData() {
+		boolean answer = (!textName.getText().isEmpty() && !textAddress.getText().isEmpty()
+				&& !textCity.getText().isEmpty() && !textResult.getText().isEmpty());
+		return answer;
+	}
 }

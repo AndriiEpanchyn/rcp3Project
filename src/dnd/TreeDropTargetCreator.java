@@ -61,40 +61,46 @@ public class TreeDropTargetCreator {
 				Node currentNode = SessionManager.getCurrentRefrence();
 				TreeItem item = (TreeItem) event.item;
 				Node target;
-				if (item == null) {
-					// Target = null, source leaf or folder
-					target = SessionManager.getSession();
-					currentNode.moveTo(target, false);
-				} else {
-					target = (Node) item.getData();
 
-					Point pt = display.map(null, tree, event.x, event.y);
-					Rectangle bounds = item.getBounds();
-					boolean insertAfter = false;
-					if (pt.y > bounds.y + bounds.height / 3) {
-						insertAfter = true;
-					}
-					currentNode.moveTo(target, insertAfter);
-				}
+				if (event.data != "Folder") {
+					if (item == null) {
+						// Target = null, source leaf or folder
+						target = SessionManager.getSession();
+						currentNode.moveTo(target, false);
+					} else {
+						target = (Node) item.getData();
 
-				NavigationView n;
-				try {
-					n = (NavigationView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-							.findView(NavigationView.ID);
-					n.setExpandStatus(true);
-					n.redrawTree();
-
-					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-					IEditorReference[] eRefs = page.getEditorReferences();
-					for (IEditorReference ref : eRefs) {
-						FormEditor editor1 = (FormEditor) ref.getEditor(false);
-						if (editor1.getEditorsNode().hashCode() == currentNode.hashCode()) {
-							editor1.changeGroup();
+						if (currentNode != target) {
+							Point pt = display.map(null, tree, event.x, event.y);
+							Rectangle bounds = item.getBounds();
+							boolean insertAfter = false;
+							if (pt.y > bounds.y + bounds.height / 3) {
+								insertAfter = true;
+							}
+							currentNode.moveTo(target, insertAfter);
 						}
 					}
 
-				} catch (Exception e) {
-					e.printStackTrace();
+					// Redraw and refresh data
+					NavigationView n;
+					try {
+						n = (NavigationView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+								.findView(NavigationView.ID);
+						n.setExpandStatus(true);
+						n.redrawTree();
+
+						IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+						IEditorReference[] eRefs = page.getEditorReferences();
+						for (IEditorReference ref : eRefs) {
+							FormEditor editor1 = (FormEditor) ref.getEditor(false);
+							if (editor1.getEditorsNode().hashCode() == currentNode.hashCode()) {
+								editor1.changeGroup();
+							}
+						}
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		});
