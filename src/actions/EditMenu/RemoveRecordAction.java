@@ -51,8 +51,8 @@ public class RemoveRecordAction extends Action {
 			int result = dialog.open();
 			if (result == 0) {
 				closeOpenedEditors(page, leafToRemove);
+				leafToRemove.removeLeaf();
 			}
-			leafToRemove.removeLeaf();
 
 		} else if (leafToRemove.hasChildren()) {// remove full folder
 			MessageDialog dialog = new MessageDialog(window.getShell(), "Confirm removing NOT EMPTY folder", null,
