@@ -6,6 +6,8 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -85,6 +87,11 @@ public class AddAction extends Action {
 			} catch (PartInitException e) {
 				e.printStackTrace();
 			}
+		} else {
+			MessageBox promptBox = new MessageBox(window.getShell(), SWT.ICON_ERROR | SWT.OK);
+			promptBox.setText("Warning! Unable create empty record");
+			promptBox.setMessage("Impossible create record with empty name");
+			int button = promptBox.open();
 		}
 	}
 

@@ -287,10 +287,10 @@ public class FormEditor extends EditorPart implements ISaveablePart2 {
 			currentReference.setPhoto(photoFileName);
 			SessionManager.setCurrentRefrence(currentReference);
 			setPartName(currentReference.getName());
+			this.firePropertyChange(999999);
+			setDirty(false);
+			refreshAll();
 		}
-		this.firePropertyChange(999999);
-		setDirty(false);
-		refreshAll();
 	}
 
 	@Override
@@ -349,13 +349,23 @@ public class FormEditor extends EditorPart implements ISaveablePart2 {
 		if (this.isDirty()) {
 			MessageBox messageBox = new MessageBox(this.getEditorSite().getShell(),
 					SWT.ICON_WARNING | SWT.YES | SWT.NO | SWT.CANCEL);
-			messageBox.setText("Warning");
+			messageBox.setText("SAVE DIALOG");
 			messageBox.setMessage("Save the changes before exiting?");
 			int buttonID = messageBox.open();
 			switch (buttonID) {
 			case SWT.YES: {
-				answer = ISaveablePart2.YES;
-				break;
+				if (isEnteredCorrectData()) {
+					answer = ISaveablePart2.YES;
+					break;
+				} else {
+					MessageBox promptBox = new MessageBox(this.getEditorSite().getShell(), SWT.ICON_ERROR | SWT.OK);
+					promptBox.setText("Warning! Couldn't save record!");
+					promptBox.setMessage(
+							"Record couldn't be saved through the incorrect data was entered.\nPlease check the data and try again.");
+					int button = promptBox.open();
+					answer = ISaveablePart2.CANCEL;
+					break;
+				}
 			}
 			case SWT.NO: {
 				answer = ISaveablePart2.NO;
